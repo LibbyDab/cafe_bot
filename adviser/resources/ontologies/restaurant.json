@@ -2,6 +2,16 @@
     "informable": {
         "course": [
             "breakfast",
+            "lunch",
+            "dinner",
+            "desssert"
+        ],
+        "type": [
+            "eggs",
+            "oatmeal",
+            "pancakes",
+            "wrap",
+            "yogurt",
             "sandwich",
             "panini",
             "salad",
@@ -12,7 +22,9 @@
             "beverage"
         ],
         "portion_size": [
-            "small",
+            "cafe",
+            "entre",
+            "regular",
             "large"
         ],
         "menu_item": [
@@ -101,15 +113,17 @@
             "Hot Tea",
             "Espresso"
         ],
-        "calories": [],
-        "price" :[],
         "vegetarian":[
-            "true",
-            "false"
+            "TRUE",
+            "FALSE"
         ],
         "contains_nuts": [
-            "true",
-            "false"
+            "TRUE",
+            "FALSE"
+        ],
+        "in_stock": [
+            "TRUE",
+            "FALSE"
         ]
     },
     "key": "menu_item",
@@ -120,14 +134,10 @@
         "vegetarian",
         "contains_nuts"
     ],
-    "complainables": [
-        "colld",
-        "messes",
-        "wrong_order"
-    ],
     "system_requestable": [
         "menu_item",
         "course",
+        "type",
         "vegetarian",
         "contains_nuts",
         "portion_size"
