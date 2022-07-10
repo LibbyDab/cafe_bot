@@ -80,34 +80,21 @@ class CafePolicy(Service):
         # removes hello and thanks if there are also domain specific actions
         self._remove_gen_actions(beliefstate)
 
-        # if user has ordered at least one item
         if 'menu_item' in beliefstate['orders']:
             # ask if ready to pay/done ordering
             # if yes:
                 # if for all menu items in beliefstate['orders'] is not a drink:
-                    # ask if user wants to add a random drink depending on time of day to their order
-                        # if yes:
-                            # beliefstate['orders'].append(drink)
-                            # continue
-                        # if no:
-                            # continue
-                #elif a menu item is a drink and for all menu items in orders is not a dessert:
-                    # ask if user wants to add a random dessert to their order
-                        # if yes:
-                            # beliefstate['orders'].append(dessert)
-                            # continue
-                        # if no:
-                            # continue
-                #else:
-                    # continue
+                    # if morning:
+                        # recommend a regular Hand-Roasted Coffee
+                    # else:
+                        # recommend a regular Fountain Soda
+                # elif a menu item is a drink and for all menu items in orders is not a dessert and it is not morning:
+                    # recommend a Chocolate Chip Cookie
                 # list all items in beliefstate['orders']
                 # compute & show total price
-                sys_act = SysAct()
-                sys_act.type = SysActionType.Bye
-            # if no:
-                sys_act = Sys(Act)
-                sys_act.type = SysActionType.RequestMore
-        
+                # assign order number
+                # end interaction
+
         if UserActionType.Bad in beliefstate["user_acts"]:
             sys_act = SysAct()
             sys_act.type = SysActionType.Bad
