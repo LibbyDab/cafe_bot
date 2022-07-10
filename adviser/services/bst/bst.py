@@ -137,7 +137,7 @@ class HandcraftedBST(Service):
                 self.bs["orders"].append(act.value)
                 # perhaps orders should be a dictionary with item as key and quantity as value
                 # if so, change belief state from list to dict
-            if act.type == UserActionType.Request:
+            elif act.type == UserActionType.Request:
                 self.bs['requests'][act.slot] = act.score
             elif act.type == UserActionType.Inform:
                 # add informs and their scores to the beliefstate

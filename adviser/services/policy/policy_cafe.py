@@ -1,5 +1,3 @@
-
-
 from collections import defaultdict
 from typing import List, Dict, String 
 
@@ -69,10 +67,6 @@ class CafePolicy(Service):
             sys_state["last_act"] = sys_act
             return {'sys_act': sys_act, "sys_state": sys_state}
 
-        # check belief state for user having places an order
-        if 'name' in beliefstate['informs']:
-
-
         # Handles case where it was the first turn, but there are user acts
         elif self.first_turn:
             self.first_turn = False
@@ -86,6 +80,34 @@ class CafePolicy(Service):
         # removes hello and thanks if there are also domain specific actions
         self._remove_gen_actions(beliefstate)
 
+        # if user has ordered at least one item
+        if 'menu_item' in beliefstate['orders']:
+            # ask if ready to pay/done ordering
+            # if yes:
+                # if for all menu items in beliefstate['orders'] is not a drink:
+                    # ask if user wants to add a random drink depending on time of day to their order
+                        # if yes:
+                            # beliefstate['orders'].append(drink)
+                            # continue
+                        # if no:
+                            # continue
+                #elif a menu item is a drink and for all menu items in orders is not a dessert:
+                    # ask if user wants to add a random dessert to their order
+                        # if yes:
+                            # beliefstate['orders'].append(dessert)
+                            # continue
+                        # if no:
+                            # continue
+                #else:
+                    # continue
+                # list all items in beliefstate['orders']
+                # compute & show total price
+                sys_act = SysAct()
+                sys_act.type = SysActionType.Bye
+            # if no:
+                sys_act = Sys(Act)
+                sys_act.type = SysActionType.RequestMore
+        
         if UserActionType.Bad in beliefstate["user_acts"]:
             sys_act = SysAct()
             sys_act.type = SysActionType.Bad
@@ -123,11 +145,6 @@ class CafePolicy(Service):
         if "last_act" not in sys_state:
             sys_state["last_act"] = sys_act
         return {'sys_act': sys_act, "sys_state": sys_state}
-
-    def can_upsell(self, menu_item: String):
-        # if the menu item is not a drink or dessert 
-        # check belief state if user hasn't already ordered drink or dessert
-
 
     def _remove_gen_actions(self, beliefstate: BeliefState):
         """
