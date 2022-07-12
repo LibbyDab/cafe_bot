@@ -2,6 +2,8 @@ from collections import defaultdict
 import sys
 from typing import List, Dict, String 
 from random import randint
+import datetime
+dt = datetime.datetime.now()
 
 from services.service import PublishSubscribe
 from services.service import Service
@@ -84,7 +86,7 @@ class CafePolicy(Service):
 
         # removes menu item from order if user asks
         if UserActionType.RemoveOrder in beliefstate['user_acts'] and self._get_name in beliefstate['orders']:
-            beliefstate['orders'.remove(self._get_name)]
+            beliefstate['orders'].remove(self._get_name)
             sys_act = SysAct()
             sys_act.type = SysActionType.RequestMore
 
@@ -100,17 +102,25 @@ class CafePolicy(Service):
                 # recommend menu item with most similar slots (or at least of same type)
                 # after ordering, asks if ready to checkout
             else:
-                beliefstate['orders'.append(self._get_name)]
+                beliefstate['orders'].append(self._get_name)
                 sys_act = SysAct()
-                sys_act.type = SysActionType.ConfirmCheckout
+                sys_act.type = SysActionType.RequestMore
 
         # if user is ready to checkout, asks to upsell
         # if system already upsold, starts checkout
-        if UserActionType.Checkout in beliefstate['user_acts']:
-            if not upsold:
+        if UserActionType.Checkout in beliefstate['user_acts'] and 'menu_item' in beliefstate['orders']:
+            if all('menu_item' is not 'beverage' for i in beliefstate['orders']) and not upsold:
                 sys_act = SysAct()
-                sys_act.type = SysActionType.Upsell
+                sys_act.type = SysActionType.Upsell #regular Fountain Drink
                 upsold = True
+                if UserActionType.Affirm in beliefstate['user_acts']:
+                    beliefstate['orders'].append('regular Fountain Drink')
+            if all('menu_item' is not 'dessert' for i in beliefstate['orders']) and dt.time() > datetime.time(11) and not upsold:
+                sys_act = SysAct()
+                sys_act.type = SysActionType.Upsell # Chocolate Chip Cookie
+                upsold = True
+                if UserActionType.Affirm in beliefstate['user_acts']:
+                    beliefstate['orders'].append('Chocolate Chip Cookie')
             else:
                 # list all items in beliefstate['orders']
                 # compute & show total price
