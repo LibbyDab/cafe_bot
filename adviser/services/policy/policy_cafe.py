@@ -33,6 +33,8 @@ class CafePolicy(Service):
         self.domain_key = domain.get_primary_key()
         self.logger = logger
         self.max_turns = max_turns
+        self.upsold = False
+        self.order_number = 1
 
     def dialog_start(self): 
         """
@@ -86,51 +88,45 @@ class CafePolicy(Service):
 
         # removes menu item from order if user asks
         if UserActionType.RemoveOrder in beliefstate['user_acts'] and self._get_name in beliefstate['orders']:
-            beliefstate['orders'].remove(self._get_name)
-            sys_act = SysAct()
-            sys_act.type = SysActionType.RequestMore
+            beliefstate['orders'][self.order_number].remove('menu_item')
+            sys_act = SysAct(act_type = SysActionType.RequestMore)
 
         # asks for more info if user order is not specific enough
-        # adds menu item to order
+        # recommends new menu item if not orderable
+        # adds menu item to order if orderable
         if UserActionType.Order in beliefstate['user_acts']:
             if self._get_open_slot(beliefstate):
                 sys_act = SysAct(act_type = SysActionType.Request)
                 slot = self._get_open_slot(beliefstate)
                 sys_act.add_value(slot)
-            # elif in_stock = False
+            # elif not orderable:
                 # inform user, apologize
-                # recommend menu item with most similar slots (or at least of same type)
-                # after ordering, asks if ready to checkout
+                # find new menu item with most similar slots (or at least random item of same type)
+                sys_act = SysAct(act_type = SysActionType.Recommend) #new menu_item
             else:
-                beliefstate['orders'].append(self._get_name)
-                sys_act = SysAct()
-                sys_act.type = SysActionType.RequestMore
+                beliefstate['orders'][self.order_number].append('menu_item')
+                sys_act = SysAct(act_type = SysActionType.RequestMore)
 
-        # if user is ready to checkout, asks to upsell
+        # if user is ready to checkout, tries to upsell
         # if system already upsold, starts checkout
-        if UserActionType.Checkout in beliefstate['user_acts'] and 'menu_item' in beliefstate['orders']:
-            if all('menu_item' is not 'beverage' for i in beliefstate['orders']) and not upsold:
-                sys_act = SysAct()
-                sys_act.type = SysActionType.Upsell #regular Fountain Drink
-                upsold = True
+        if UserActionType.Checkout in beliefstate['user_acts'] and 'menu_item' in beliefstate['orders'][self.order_number]:
+            if all('menu_item' is not 'beverage' for i in beliefstate['orders'][self.order_number]) and not self.upsold:
+                self.upsold = True
+                sys_act = SysAct(act_type = SysActionType.Recommend) #regular Fountain Drink
                 if UserActionType.Affirm in beliefstate['user_acts']:
-                    beliefstate['orders'].append('regular Fountain Drink')
-            if all('menu_item' is not 'dessert' for i in beliefstate['orders']) and dt.time() > datetime.time(11) and not upsold:
-                sys_act = SysAct()
-                sys_act.type = SysActionType.Upsell # Chocolate Chip Cookie
-                upsold = True
+                    beliefstate['orders'][self.order_number].append('regular Fountain Drink')
+            if all('menu_item' is not 'dessert' for i in beliefstate['orders'][self.order_number]) and dt.time() > datetime.time(11) and not self.upsold:
+                self.upsold = True
+                sys_act = SysAct(act_type = SysActionType.Recommend) # Chocolate Chip Cookie
                 if UserActionType.Affirm in beliefstate['user_acts']:
-                    beliefstate['orders'].append('Chocolate Chip Cookie')
+                    beliefstate['orders'][self.order_number].append('Chocolate Chip Cookie')
             else:
-                # list all items in beliefstate['orders']
-                # compute & show total price
-                for item in beliefstate['orders']:
-                    total_price =+ 
-                # assign order number
-                order_number = randint(1, 100)
-                # end interaction
-                sys_act = SysAct()
-                sys_act.type = SysActionType.Checkout
+                # list all items in beliefstate['orders'][self.order_number], compute & show total price
+                for item in beliefstate['orders'][self.order_number]:
+                    # total_price =+ item price
+                # give order number & end interaction
+                sys_act = SysAct(act_type = SysActionType.Checkout)
+                self.order_number += 1
 
         if UserActionType.Bad in beliefstate["user_acts"]:
             sys_act = SysAct()
@@ -566,3 +562,12 @@ class CafePolicy(Service):
             # Using constraints here rather than results to deal with empty
             # results sets (eg. user requests something impossible) --LV
             sys_act.add_value(c, constraints[c])
+
+    def orderable(self, ):
+        '''helper function to determine if menu_item is orderable'''
+        # if menu_item in_stock = true
+        # or menu_item course = breakfast and type = not beverage, and dt.time() < datetime.time(11)
+        # or if menu_item course = lunch or course = dinner and dt.time() > datetime.time(11)
+            #return True
+        # else:
+            # return False
