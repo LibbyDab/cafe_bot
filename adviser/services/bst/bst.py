@@ -134,7 +134,7 @@ class HandcraftedBST(Service):
     
         for act in user_acts:
             if act.type == UserActionType.Order:
-                self.bs["orders"].append(act.value)
+                self.bs["order_request"].append(act.value)
                 # perhaps orders should be a dictionary with item as key and quantity as value
                 # if so, change belief state from list to dict
             elif act.type == UserActionType.Request:
@@ -154,3 +154,5 @@ class HandcraftedBST(Service):
                 # This way it is clear that the user is no longer asking about that one item
                 if self.domain.get_primary_key() in self.bs['informs']:
                     del self.bs['informs'][self.domain.get_primary_key()]
+            elif act.type == UserActionType.RemoveOrder:
+                self.bs['orders'][self.order_number].remove(act.value)
