@@ -20,6 +20,8 @@
 """ This module provides the BeliefState class. """
 
 import copy
+from email.policy import default
+from typing import DefaultDict
 
 from utils.domain.jsonlookupdomain import JSONLookupDomain
 
@@ -109,7 +111,8 @@ class BeliefState:
                         "requests": {},
                         "num_matches": 0,
                         "discriminable": True,
-                        "orders": {} }
+                        "order_request": [],
+                        "orders": DefaultDict(list) }
 
         return belief_state
 

@@ -88,21 +88,20 @@ class CafePolicy(Service):
 
         # removes menu item from order if user asks
         if UserActionType.RemoveOrder in beliefstate['user_acts'] and self._get_name in beliefstate['orders']:
-            beliefstate['orders'][self.order_number].remove('menu_item')
             sys_act = SysAct(act_type = SysActionType.RequestMore)
+            sys_state["last_act"] = sys_act
+            return {'sys_act': sys_act, "sys_state": sys_state}
 
         # asks for more info if user order is not specific enough
         # recommends new menu item if not orderable
         # adds menu item to order if orderable
         if UserActionType.Order in beliefstate['user_acts']:
-            if self._get_open_slot(beliefstate):
-                sys_act = SysAct(act_type = SysActionType.Request)
-                slot = self._get_open_slot(beliefstate)
-                sys_act.add_value(slot)
-            # elif not orderable:
+            if not orderable(beliefstate['order_request']):
                 # inform user, apologize
                 # find new menu item with most similar slots (or at least random item of same type)
-                sys_act = SysAct(act_type = SysActionType.Recommend) #new menu_item
+                # sys_act = SysAct(act_type = SysActionType.Recommend) #new menu_item
+                # sys_act.add_value('menu_item', )
+            elif beliefstate['order_request'] and not beliefstate['informs']['portion_size'] 
             else:
                 beliefstate['orders'][self.order_number].append('menu_item')
                 sys_act = SysAct(act_type = SysActionType.RequestMore)
@@ -112,12 +111,15 @@ class CafePolicy(Service):
         if UserActionType.Checkout in beliefstate['user_acts'] and 'menu_item' in beliefstate['orders'][self.order_number]:
             if all('menu_item' is not 'beverage' for i in beliefstate['orders'][self.order_number]) and not self.upsold:
                 self.upsold = True
-                sys_act = SysAct(act_type = SysActionType.Recommend) #regular Fountain Drink
+                sys_act = SysAct(act_type = SysActionType.Recommend)
+                sys_act.add_value('menu_item', 'Fountain Drink')
+
                 if UserActionType.Affirm in beliefstate['user_acts']:
                     beliefstate['orders'][self.order_number].append('regular Fountain Drink')
             if all('menu_item' is not 'dessert' for i in beliefstate['orders'][self.order_number]) and dt.time() > datetime.time(11) and not self.upsold:
                 self.upsold = True
-                sys_act = SysAct(act_type = SysActionType.Recommend) # Chocolate Chip Cookie
+                sys_act = SysAct(act_type = SysActionType.Recommend)
+                sys_act.add_value('menu_item', 'Chocolate Chip Cookie')
                 if UserActionType.Affirm in beliefstate['user_acts']:
                     beliefstate['orders'][self.order_number].append('Chocolate Chip Cookie')
             else:
@@ -563,11 +565,12 @@ class CafePolicy(Service):
             # results sets (eg. user requests something impossible) --LV
             sys_act.add_value(c, constraints[c])
 
-    def orderable(self, ):
+# double check & possibly break up
+    def orderable(self, menu_item):
         '''helper function to determine if menu_item is orderable'''
-        # if menu_item in_stock = true
-        # or menu_item course = breakfast and type = not beverage, and dt.time() < datetime.time(11)
-        # or if menu_item course = lunch or course = dinner and dt.time() > datetime.time(11)
-            #return True
-        # else:
-            # return False
+        if self.domain.find_info_about_entity(menu_item, ['in_stock']) == 'True'\
+        and ((self.domain.find_info_about_entity(menu_item, ['course']) == 'breakfast' and self.domain.find_info_about_entity(menu_item, ['type']) != 'beverage' and dt.time() < datetime.time(11))
+        or (self.domain.find_info_about_entity(menu_item, 'course' == 'lunch') or self.domain.find_info_about_entity(menu_item, 'course' == 'dinner') and dt.time() > datetime.time(11)))
+            return True
+        else:
+            return False
