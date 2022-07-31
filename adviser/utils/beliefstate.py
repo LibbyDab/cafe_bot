@@ -110,9 +110,7 @@ class BeliefState:
                         "informs": {},
                         "requests": {},
                         "num_matches": 0,
-                        "discriminable": True,
-                        "order_request": [],
-                        "orders": DefaultDict(list) }
+                        "discriminable": True}
 
         return belief_state
 

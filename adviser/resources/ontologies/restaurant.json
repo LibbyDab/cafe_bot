@@ -120,10 +120,6 @@
         "contains_nuts": [
             "TRUE",
             "FALSE"
-        ],
-        "in_stock": [
-            "TRUE",
-            "FALSE"
         ]
     },
     "key": "menu_item",

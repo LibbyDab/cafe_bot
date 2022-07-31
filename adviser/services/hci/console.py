@@ -113,10 +113,8 @@ class ConsoleOutput(Service):
     def __init__(self, domain: Domain = None):
         Service.__init__(self, domain=domain)
 
-    #@PublishSubscribe(sub_topics=["sys_utterance"], pub_topics=[Topic.DIALOG_END])
-    #def print_sys_utterance(self, sys_utterance: str = None) -> dict():
-    @PublishSubscribe(sub_topics=["sys_act"], pub_topics=[Topic.DIALOG_END])
-    def print_sys_utterance(self, sys_act: str = None) -> dict():
+    @PublishSubscribe(sub_topics=["sys_utterance"], pub_topics=[Topic.DIALOG_END])
+    def print_sys_utterance(self, sys_utterance: str = None) -> dict():
         """
 
         The message is simply printed to the console.
@@ -130,7 +128,6 @@ class ConsoleOutput(Service):
         Raises:
             ValueError: if there is no system utterance to print
         """
-        sys_utterance = sys_act
         if sys_utterance is not None and sys_utterance != "":
             print("System: {}".format(sys_utterance))
         else:

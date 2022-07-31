@@ -1,0 +1,15 @@
+{
+    "menu_item": {
+        "fountain drink": "(I (would like|want) a fountain drink)|(can I (get|order|have) a fountain drink)",
+        "chicken noodle soup": "((I(( would like)|want)( to order)?)|(can I( get|order|have))? (a )?chicken noodle soup",
+        "chocolate chip cookie": "chocolate chip cookie"
+    },
+    "vegetarian": {
+        "FALSE": "I don't want vegetarian food",
+        "TRUE": "I'm a vegetarian"
+    },
+    "contains_nuts": {
+        "FALSE": "I'm allergic to nuts",
+        "TRUE": "I love nuts"
+    }
+}

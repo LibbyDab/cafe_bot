@@ -1,0 +1,8 @@
+{
+    "menu_item": "(what do you recommend)",
+    "vegetarian": "((is it vegetarian( friendly)?)|(does it( contain|have) meat))",
+    "contains_nuts": "(does it( contain|have) nuts)",
+    "in_stock": "(is it in stock)",
+    "price": "(how much( does it cost)?)|(what is the price)",
+    "calories": "((how many calories)( are in (it|that)|does( it|that) have)?"
+}

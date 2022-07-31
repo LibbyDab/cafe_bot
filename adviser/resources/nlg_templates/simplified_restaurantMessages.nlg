@@ -1,0 +1,14 @@
+# ---------------NEW RULES - SUPERHERO MESSAGES-------------------------
+
+template welcomemsg(): "Welcome to Corner Bakery Cafe. How can I help you?"
+template welcomemsg(help): "Sorry, I cannot understand you. Please tell me again what you are looking for."
+template welcomemsg(more) : "Can I help you with anything else?"
+template bad() : "Sorry I didn't understand that; please tell me again what you are looking for."
+template closingmsg() : "Have a nice day!"
+
+# System Requests
+
+template request(vegetarian): "Are you vegetarian?"
+template request(contains_nuts): "Are you allergic to nuts?"
+template request(type): "What kind of food are you looking for?"
+

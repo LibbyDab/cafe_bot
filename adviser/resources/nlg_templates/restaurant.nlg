@@ -1,0 +1,58 @@
+# ---------------NEW RULES - SUPERHERO MESSAGES-------------------------
+
+template welcomemsg(): "Welcome to the cafe chat bot. How may I help you?"
+template welcomemsg(help): "Sorry, I cannot understand you. Please tell me again what you are looking for."
+template welcomemsg(more) : "Can I help you with anything else?"
+template bad() : "Sorry I am a bit confused; please tell me again what you are looking for."
+template closingmsg() : "Have a nice day!"
+
+# System Requests
+
+template request(type): "What kind of dish are you looking for?"
+
+template request(portion_size): "What size {menu_item} would you like?"
+
+# Rules for System Inform
+
+function info(slot, value, menu_item)
+	if slot = "calories": "has \"{value}\" calories"
+    if slot = "price": "costs \"{price}\""
+    if slot = "vegetarian":
+        if value = "TRUE": "is vegetarian"
+        elif: "is not vegetarian"
+    if slot = "contains_nuts":
+        if value = "TRUE": "contains nuts"
+        elif: "is nut free"
+    if slot
+
+# -------------------------Only Name Slot-----------------------------------#
+
+template inform_byname(menu_item)
+	"There is a menu item called {menu_item}. What do you want to know about it?"
+
+	special_case menu_item = "none"
+		"I’m sorry, I could not find this menu item."
+
+
+template inform_alternatives(menu_item)
+	"There is another menu item called {menu_item}. What do you want to know about it?"
+
+	special_case menu_item = "none"
+		"I'm sorry, I couldn't find another menu item."
+
+
+#------------------------ Name Slot + Slots----------------------------------#
+
+template inform_byname(menu_item, *slots)
+	"The menu item called {menu_item} {for_entry(slots, "info", ", they ", " and they ", name)}."
+	
+	special_case menu_item = "none"
+		"There is no such dish which {for_entry(slots, "info", ", ", " and ", name)}."
+
+template inform_alternatives(name, *slots)
+	"The superhero {name} also {for_entry(slots, "info", ", they ", " and they ", name)}."
+	
+	special_case name = "none"
+		"There is no other course which also {for_entry(slots, "info", ", ", " and ", name)}."
+
+

@@ -28,7 +28,7 @@ from services.service import Service
 from utils.common import Language
 from utils.domain.domain import Domain
 from utils.logger import DiasysLogger
-from utils.sysact import SysAct
+from utils.sysact import SysAct, SysActionType
 from typing import Dict
 
 
@@ -78,7 +78,8 @@ class HandcraftedNLG(Service):
         Returns:
             dict: a dict containing the system utterance
         """
-        return {'sys_utterance': self.generate_system_utterance(sys_act)}
+        msg = self.generate_system_utterance(sys_act)
+        return {'sys_utterance': msg}
 
 
     def generate_system_utterance(self, sys_act: SysAct = None) -> str:
@@ -156,3 +157,32 @@ class HandcraftedNLG(Service):
             return f"{name}'"
         else:
             return f"{name}s"
+
+
+
+class CafeNLG(HandcraftedNLG):
+
+    def __init__(self, domain: Domain, template_file: str = None, sub_topic_domains: Dict[str, str] = {}, logger: DiasysLogger = DiasysLogger(), template_file_german: str = None, language: Language = None):
+        super().__init__(domain, template_file, sub_topic_domains, logger, template_file_german, language)
+
+    @PublishSubscribe(sub_topics=["sys_act"], pub_topics=["sys_utterance"])
+    def publish_system_utterance(self, sys_act: SysAct = None) -> dict(sys_utterance=str):
+        """Generates the system utterance and publishes it.
+
+        Args:
+            sys_act (SysAct): The system act published by the policy
+
+        Returns:
+            dict: a dict containing the system utterance
+        """
+        msg = self.generate_system_utterance(sys_act)
+        return {'sys_utterance': msg}
+
+    def generate_system_utterance(self, sys_act: SysAct = None) -> str:
+        print("nlg.py 170: got sys_act: ", sys_act)
+        if sys_act.type == SysActionType.Welcome:
+            return "hi, welcom"
+        elif sys_act.type == SysActionType.Bye:
+            return "bye"
+        else:
+            return "roger" 

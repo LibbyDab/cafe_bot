@@ -1,0 +1,63 @@
+{
+    "binary": [
+        "vegetarian",
+        "contains_nuts",
+        "in_stock",
+        "vegetarian",
+        "contains_nuts",
+        "in_stock",
+        "vegetarian",
+        "contains_nuts",
+        "in_stock"
+    ],
+    "discourseAct": [
+        "ack",
+        "hello",
+        "none",
+        "silence",
+        "thanks",
+        "bad"
+    ],
+    "informable": {
+        "contains_nuts": [
+            "FALSE",
+            "TRUE"
+        ],
+        "menu_item": [
+            "chicken noodle soup",
+            "chocolate chip cookie",
+            "fountain drink"
+        ],
+        "price": [
+            "1.00",
+            "2.00",
+            "5.00"
+        ],
+        "vegetarian": [
+            "FALSE",
+            "TRUE"
+        ]
+    },
+    "key": "menu_item",
+    "method": [
+        "none",
+        "byconstraints",
+        "byprimarykey",
+        "finished",
+        "byalternatives",
+        "restart"
+    ],
+    "requestable": [
+        "menu_item",
+        "vegetarian",
+        "contains_nuts",
+        "calories",
+        "price"
+    ],
+    "system_requestable": [
+        "menu_item",
+        "vegetarian",
+        "contains_nuts"
+    ],
+    "keyword": "simplified_restaurant"
+}
