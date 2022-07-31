@@ -1,22 +1,22 @@
 {
     "breakfast": {
-        "FALSE": "",
+        "FALSE": "(I (don't|do not) want (to order )?(something|anything) for breakfast)",
         "True": "((I want|I would like|I'd like) (to order )?something for breakfast)"
         }, 
     "contains_nuts": {
-        "FALSE": "((I am|I'm) allergic to nuts|I have a nut allergy|Yes|yes", 
-        "TRUE": "(I am|I'm) not allergic to nuts|No|no)"
+        "FALSE": "((I am|I'm) allergic to nuts|I have a nut allergy|Yes|yes)", 
+        "TRUE": "((I am|I'm) not allergic to nuts|No|no)"
     }, 
     "dessert": {
-        "False": "", 
+        "FALSE": "(I (don't|do not) want (to order )?(something|anything) for dessert)",
         "True": "((I want|I would like|I'd like) (to order )?something for dessert)"
     }, 
     "dinner": {
-        "False": "((I want|I would like|I'd like) (to order )?something for dinner)", 
+        "FALSE": "(I (don't|do not) want (to order )?(something|anything) for dinner)",
         "True": "((I want|I would like|I'd like) (to order )?something for dinner)"
     }, 
     "lunch": {
-        "False": "((I want|I would like|I'd like) (to order )?something for lunch)", 
+        "FALSE": "(I (don't|do not) want (to order )?(something|anything) for lunch)",
         "True": "((I want|I would like|I'd like) (to order )?something for lunch)"
     }, 
     "menu_item": {

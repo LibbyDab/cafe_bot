@@ -178,11 +178,11 @@ class CafeNLG(HandcraftedNLG):
         msg = self.generate_system_utterance(sys_act)
         return {'sys_utterance': msg}
 
-    def generate_system_utterance(self, sys_act: SysAct = None) -> str:
-        print("nlg.py 170: got sys_act: ", sys_act)
-        if sys_act.type == SysActionType.Welcome:
-            return "hi, welcom"
-        elif sys_act.type == SysActionType.Bye:
-            return "bye"
-        else:
-            return "roger" 
+#    def generate_system_utterance(self, sys_act: SysAct = None) -> str:
+#        print("nlg.py 170: got sys_act: ", sys_act)
+#        if sys_act.type == SysActionType.Welcome:
+#            return "hi, welcom"
+#        elif sys_act.type == SysActionType.Bye:
+#            return "bye"
+#        else:
+#            return "roger" 
