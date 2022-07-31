@@ -2,13 +2,18 @@
     "binary": [
         "vegetarian",
         "contains_nuts",
-        "in_stock",
+        "breakfast",
+        "lunch",
+        "dinner",
+        "dessert",
         "vegetarian",
         "contains_nuts",
-        "in_stock",
         "vegetarian",
         "contains_nuts",
-        "in_stock"
+        "breakfast",
+        "lunch",
+        "dinner",
+        "dessert"
     ],
     "discourseAct": [
         "ack",
@@ -19,19 +24,127 @@
         "bad"
     ],
     "informable": {
+        "breakfast": [
+            "False",
+            "True"
+        ],
         "contains_nuts": [
             "FALSE",
             "TRUE"
         ],
-        "menu_item": [
-            "chicken noodle soup",
-            "chocolate chip cookie",
-            "fountain drink"
+        "dessert": [
+            "False",
+            "True"
         ],
-        "price": [
-            "1.00",
-            "2.00",
-            "5.00"
+        "dinner": [
+            "False",
+            "True"
+        ],
+        "lunch": [
+            "False",
+            "True"
+        ],
+        "menu_item": [
+            "All-American Scrambler",
+            "Americano",
+            "Anaheim Panini",
+            "Anaheim Scrambler",
+            "Apple & Banana Overnight Oats",
+            "Avocado Breakfast Wrap",
+            "BBLT",
+            "BBLT & Egg Sandwich",
+            "Bacon & Cheddar Panini",
+            "Bacon & Roasted Tomato Frittata Bites",
+            "Bacon Avocado Egg Bowl",
+            "Bacon Breakfast Wrap",
+            "Bakery Chips",
+            "Berry & Almond Overnight Oats",
+            "Breakfast Wrap Morning Rush",
+            "Buttermilk Pancakes",
+            "Buttermilk Pancakes with Bacon",
+            "Buttermilk Pancakes with Bacon & Scrambled Eggs",
+            "Cappuccino",
+            "Caramel Macchiato",
+            "Carrots",
+            "Carved Ham & Swiss",
+            "Chai Latte",
+            "Cheddar Broccoli",
+            "Chicken Carbonara",
+            "Chicken Noodle",
+            "Chicken Orzo",
+            "Chicken Pesto",
+            "Chicken Pomodori",
+            "Chicken Sausage Wrap",
+            "Chocolate Baby Bundt",
+            "Chocolate Chip Cookie",
+            "Chopped",
+            "Classic Caesar",
+            "Classic Caesar Side Salad",
+            "Classic Caesar with Chicken",
+            "Classic Caesar with Shrimp",
+            "Club",
+            "Cold Brew (black)",
+            "Cold Brew (vanilla sweet cream)",
+            "Cream Cheese Brownie",
+            "Denver Frittata Bites",
+            "Fountain Soda",
+            "Fresh Yogurt & Berry Parfait",
+            "Fudge Brownie",
+            "Hand-Roasted Coffee",
+            "Harvest",
+            "Honey Balsalmic Ancient Grains",
+            "Hot Tea",
+            "Iced Americano",
+            "Iced Chai Latte",
+            "Iced Coffee",
+            "Iced Tea",
+            "Latte",
+            "Lemon Baby Bundt",
+            "Lemon Bar",
+            "Lemonade",
+            "Loaded Baked Potato",
+            "Mac & Cheese",
+            "Mac & Cheese with Bacon & Tomato",
+            "Maple Peacan Bar",
+            "Mixed Greens Side Salad",
+            "Monster Cookie",
+            "Morning Rush",
+            "Oatmeal Rasin Cookie",
+            "Pesto Cavatappi",
+            "Power Breakfast Egg Bowl",
+            "Power Greens & Grains",
+            "Power Greens & Grains with Chicken",
+            "Power Greens & Grains with Shrimp",
+            "Roasted Tomato Basil",
+            "Rustic Italian",
+            "Seasonal Fruit Medley",
+            "Shrimp Scampi Linguine",
+            "Steel-Cut Oatmeal",
+            "Strawberry Lemonade",
+            "Sugar Cookie",
+            "Toffee Cookie",
+            "Tomato Mozzarella",
+            "Truffle Hot Chocolate",
+            "Truffle Mocha",
+            "Turkey Avocado Cobb",
+            "Tuscan Grilled Cheese",
+            "Uptown Turkey Avocado"
+        ],
+        "type": [
+            "dessert",
+            "drink",
+            "eggs",
+            "muffin or bagel",
+            "oatmeal",
+            "pancakes",
+            "panini",
+            "pasta",
+            "salad",
+            "sandwich",
+            "side",
+            "soup",
+            "wrap",
+            "yogurt"
         ],
         "vegetarian": [
             "FALSE",
@@ -48,7 +161,6 @@
         "restart"
     ],
     "requestable": [
-        "menu_item",
         "vegetarian",
         "contains_nuts",
         "calories",
@@ -57,7 +169,11 @@
     "system_requestable": [
         "menu_item",
         "vegetarian",
-        "contains_nuts"
-    ],
-    "keyword": "simplified_restaurant"
+        "contains_nuts",
+        "breakfast",
+        "lunch",
+        "dinner",
+        "dessert",
+        "type"
+    ]
 }

@@ -12,3 +12,15 @@ template request(vegetarian): "Are you vegetarian?"
 template request(contains_nuts): "Are you allergic to nuts?"
 template request(type): "What kind of food are you looking for?"
 
+# Rules for System Inform
+
+function info(slot, value, menu_item)
+	if slot = "vegetarian"
+        if value = "TRUE": "{menu_item} is vegetarian"
+        if value = "FALSE": "{menu_item} contains
+	if slot = "contains_nuts"
+        if value = "TRUE": "{menu_item} contains nuts"
+        if value = "FALSE": "{menu_item} is nut-free"
+	if slot = "calories": "{menu_item} has \"{value}\" calories"
+	if slot = "price": "{menu_item} is \"{value}\""
+

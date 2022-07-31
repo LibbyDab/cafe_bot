@@ -1,7 +1,7 @@
 # user informable slots are menu_item, vegetarian, contains_nuts, breakfast, lunch, dinner, dessert, type
 
 rule inform(menu_item)
-    "I (want|would like) (to order )?(a|an) {menu_item}"
+    "(I want|I would like|I'd like) (to order )?(a|an) {menu_item}"
     "(Can|May) I (please )?(get|order|have) (a|an) {menu_item}"
     "I want to (know|ask) (something )?about the {menu_item}"
     "I have a question about the {menu_item}"
@@ -23,16 +23,16 @@ rule inform(contains_nuts)
     "No|no"
 
 rule inform(breakfast)
-    "I (want|would like) (to order )?something for breakfast"
+    "(I want|I would like|I'd like) (to order )?something for breakfast"
 
 rule inform(lunch)
-    "I (want|would like) (to order )?something for lunch"
+    "(I want|I would like|I'd like) (to order )?something for lunch"
 
 rule inform(dinner)
-    "I (want|would like) (to order )?something for dinner"
+    "(I want|I would like|I'd like) (to order )?something for dinner"
 
 rule inform(dessert)
-    "I (want|would like) (to order )?something for dessert"
+    "(I want|I would like|I'd like) (to order )?something for dessert"
 
 rule inform(type)
     "I want (a|some kind of) {type}( dish)?"
@@ -42,21 +42,21 @@ rule inform(type)
 # user requestable slots are vegetarian, contains_nuts, calories, price
 
 rule request(vegetarian)
-    "Is (this|that|it|(the )?{menu_item}) vegetarian"
-    "Does (this|that|it|(the )?{menu_item}) (contain|have) meat"
+    "Is (this|that|it) vegetarian"
+    "Does (this|that|it) (contain|have) meat"
 
 rule request(contains_nuts)
-    "Is (this|that|it|(the )?{menu_item}) (nut-free|nut free|without (any )?nuts)"
-    "Does (this|that|it|(the )?{menu_item}) (contain|have) (any )?nuts)"
-    "Is (this|that|it|(the )?{menu_item}) safe for people with (nut allergies|a sensitivity to nuts)"
+    "Is (this|that|it) (nut-free|nut free|without (any )?nuts)"
+    "Does (this|that|it) (contain|have) (any )?nuts)"
+    "Is (this|that|it) safe for people with (nut allergies|a sensitivity to nuts)"
 
 rule request(calories)
-    "How many calories (does (this|that|it|(the )?{menu_item}) have|are in (this|that|it|(the )?{menu_item}))"
-    "(What is|What's) (the calorie count of (this|that|it|(the )?{menu_item})|(that's|its|(the )?{menu_item}('s|')) calorie count)"
+    "How many calories (does (this|that|it) have|are in (this|that|it))"
+    "(What is|What's) (the calorie count of (this|that|it)|(that's|its('s|')) calorie count)"
 
 rule request(price)
-    "How much (is (this|that|it|(the )?{menu_item})|does (this|that|it|(the )?{menu_item}) cost)"
-    "(What is|What's) (the (price|cost) of (this|that|it|(the )?{menu_item})|(that's|its|(the )?{menu_item}('s|')) (price|cost)"
+    "How much (is (this|that|it)|does (this|that|it) cost)"
+    "(What is|What's) (the (price|cost) of (this|that|it)|(that's|its('s|')) (price|cost)"
 
 # synonyms
 

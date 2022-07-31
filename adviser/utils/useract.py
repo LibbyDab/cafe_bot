@@ -38,9 +38,6 @@ class UserActionType(Enum):
     Bad = 'bad'
     Confirm = 'confirm'
     SelectDomain = 'selectdomain'
-    RemoveOrder = 'removeorder'
-    Order = 'order'
-    Checkout = 'checkout'
 
 
 class UserAct(object):
