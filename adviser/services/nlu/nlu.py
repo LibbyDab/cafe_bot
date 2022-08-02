@@ -92,6 +92,7 @@ class HandcraftedNLU(Service):
         # Getting lists of informable and requestable slots
         self.USER_INFORMABLE = domain.get_informable_slots()
         self.USER_REQUESTABLE = domain.get_requestable_slots()
+#        self.USER_ORDERABLE = domain.get_orderable_slots()
 
         # Getting the relative path where regexes are stored
         self.base_folder = os.path.join(get_root_dir(), 'resources', 'nlu_regexes')
@@ -270,6 +271,8 @@ class HandcraftedNLU(Service):
         self._match_request(user_utterance)
         # Find Informs
         self._match_inform(user_utterance)
+#        # Find Orders
+#        self._match_order(user_utterance)
 
     def _match_request(self, user_utterance: str):
         """
@@ -345,6 +348,35 @@ class HandcraftedNLU(Service):
         # Storing user informed slots in this turn
         self.slots_informed.add(slot)
 
+#    def _match_order(self, user_utterance: str):
+#        """
+#        Iterates over all user order regexes and find matches with the user utterance
+#
+#        Args:
+#            user_utterance {str} --  text input from user
+#
+#        Returns:
+#
+#        """
+#        # Iteration over all user orderable slots
+#        for slot in self.USER_ORDERABLE:
+#            if self._check(re.search(self.request_regex[slot], user_utterance, re.I)):
+#                self._add_order(user_utterance, slot)
+#
+#    def _add_order(self, user_utterance: str, slot: str):
+#        """
+#        Creates the user request act and adds it to the user act list
+#        Args:
+#            user_utterance {str} --  text input from user
+#            slot {str} -- requested slot
+#
+#        Returns:
+#
+#        """
+#        # New user act -- Order(slot)
+#        user_act = UserAct(text=user_utterance, act_type=UserActionType.Order, slot=slot)
+#        self.user_acts.append(user_act)
+#
     @staticmethod
     def _exact_match(phrases: List[str], user_utterance: str) -> bool:
         """
@@ -461,6 +493,8 @@ class HandcraftedNLU(Service):
                                                 + 'RequestRules.json'))
             self.inform_regex = json.load(open(self.base_folder + '/' + self.domain_name
                                                + 'InformRules.json'))
+#            self.order_regex = json.load(open(self.base_folder + '/' + self.domain_name
+#                                               + 'OrderRules.json'))
         elif self.language == Language.GERMAN:
             # TODO: Change this once
             # Loading regular expression from JSON files

@@ -298,12 +298,16 @@ class HandcraftedPolicy(Service):
             sys_act.type = SysActionType.Bad
             return sys_act, {'last_act': sys_act}
 
-        elif UserActionType.RequestAlternatives in beliefstate['user_acts'] \
-                and not self._get_constraints(beliefstate)[0]:
-            sys_act = SysAct()
-            sys_act.type = SysActionType.Bad
-            return sys_act, {'last_act': sys_act}
-
+#        if UserActionType.Order in beliefstate['user_acts']:
+#            sys_act = SysAct()
+#            sys_act.type = SysActionType.Confirm
+#
+#        elif UserActionType.RequestAlternatives in beliefstate['user_acts'] \
+#                and not self._get_constraints(beliefstate)[0]:
+#            sys_act = SysAct()
+#            sys_act.type = SysActionType.Bad
+#            return sys_act, {'last_act': sys_act}
+#
         elif self.domain.get_primary_key() in beliefstate['informs'] \
                 and not beliefstate['requests']:
             sys_act = SysAct()

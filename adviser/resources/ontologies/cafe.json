@@ -164,7 +164,8 @@
         "vegetarian",
         "contains_nuts",
         "calories",
-        "price"
+        "price",
+        "type"
     ],
     "system_requestable": [
         "menu_item",
@@ -175,6 +176,9 @@
         "dinner",
         "dessert",
         "type"
+    ],
+    "orderable": [
+        "menu_item"
     ],
     "keyword": "cafe"
 }

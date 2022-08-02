@@ -150,3 +150,5 @@ class HandcraftedBST(Service):
                 # This way it is clear that the user is no longer asking about that one item
                 if self.domain.get_primary_key() in self.bs['informs']:
                     del self.bs['informs'][self.domain.get_primary_key()]
+#            elif act.type == UserActionType.Order:
+#                self.bs['order'].append(act.value)

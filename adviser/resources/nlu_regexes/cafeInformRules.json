@@ -1,7 +1,7 @@
 {
     "breakfast": {
         "False": "((I (don't|do not) want)|((I'm|I am) not interested in) (something|anything for)?breakfast( (food(s)?)|(menu item(s)?)|dish(es)?)?)",
-        "True": "((I want|I would like|I'd like) (to order )?(something for)? breakfast)"
+        "True": "((I want|I would like|I'd like|I'm looking for )?(to order|get )?(something for )?breakfast)"
     },
     "contains_nuts": {
         "FALSE": "((I am|I'm) allergic to nuts|I have a nut allergy|Yes|yes)",
@@ -9,15 +9,15 @@
     },
     "dessert": {
         "False": "((I (don't|do not) want)|((I'm|I am) not interested in) (something|anything for)?dessert( (food(s)?)|(menu item(s)?)|dish(es)?)?)",
-        "True": "((I want|I would like|I'd like) (to order )?something for dessert)"
+        "True": "((I want|I would like|I'd like|I'm looking for) (to order|get )?something for dessert)"
     },
     "dinner": {
         "False": "((I (don't|do not) want)|((I'm|I am) not interested in) (something|anything for)?dinner( (food(s)?)|(menu item(s)?)|dish(es)?)?)",
-        "True": "((I want|I would like|I'd like) (to order )?something for dinner)"
+        "True": "((I want|I would like|I'd like|I'm looking for) (to order|get )?something for dinner)"
     },
     "lunch": {
         "False": "((I (don't|do not) want)|((I'm|I am) not interested in) (something|anything for)?lunch( (food(s)?)|(menu item(s)?)|dish(es)?)?)",
-        "True": "((I want|I would like|I'd like) (to order )?something for lunch)"
+        "True": "((I want|I would like|I'd like|I'm looking for) (to order|get )?something for lunch)"
     },
     "menu_item": {
         "All-American Scrambler": "(I want to (know|ask) (something )?about the All-American Scrambler|I have a question about the All-American Scrambler|(The )?All-American Scrambler)",
@@ -106,20 +106,20 @@
         "Uptown Turkey Avocado": "(I want to (know|ask) (something )?about the Uptown Turkey Avocado|I have a question about the Uptown Turkey Avocado|(The )?Uptown Turkey Avocado)"
     },
     "type": {
-        "dessert": "(I want (a|some kind of) dessert( dish)?|I want something with (some )?dessert)",
-        "drink": "(I want (a|some kind of) drink( dish)?|I want something with (some )?drink)",
-        "eggs": "(I want (a|some kind of) eggs( dish)?|I want something with (some )?eggs)",
-        "muffin or bagel": "(I want (a|some kind of) muffin or bagel( dish)?|I want something with (some )?muffin or bagel)",
-        "oatmeal": "(I want (a|some kind of) oatmeal( dish)?|I want something with (some )?oatmeal)",
-        "pancakes": "(I want (a|some kind of) pancakes( dish)?|I want something with (some )?pancakes)",
-        "panini": "(I want (a|some kind of) panini( dish)?|I want something with (some )?panini)",
-        "pasta": "(I want (a|some kind of) pasta( dish)?|I want something with (some )?pasta)",
-        "salad": "(I want (a|some kind of) salad( dish)?|I want something with (some )?salad)",
-        "sandwich": "(I want (a|some kind of) sandwich( dish)?|I want something with (some )?sandwich)",
-        "side": "(I want (a|some kind of) side( dish)?|I want something with (some )?side)",
-        "soup": "(I want (a|some kind of) soup( dish)?|I want something with (some )?soup)",
-        "wrap": "(I want (a|some kind of) wrap( dish)?|I want something with (some )?wrap)",
-        "yogurt": "(I want (a|some kind of) yogurt( dish)?|I want something with (some )?yogurt)"
+        "dessert": "((I want (a|some kind of)? dessert( dish)?|I want something with (some )?)?dessert)",
+        "drink": "((I want (a|some kind of)? drink( dish)?|I want something with (some )?)?drink)",
+        "eggs": "((I want (a|some kind of)? eggs( dish)?|I want something with (some )?)?eggs)",
+        "muffin or bagel": "((I want (a|some kind of)? muffin or bagel( dish)?|I want something with (some )?)?muffin or bagel)",
+        "oatmeal": "((I want (a|some kind of)? oatmeal( dish)?|I want something with (some )?)?oatmeal)",
+        "pancakes": "((I want (a|some kind of)? pancakes( dish)?|I want something with (some )?)?pancakes)",
+        "panini": "((I want (a|some kind of)? panini( dish)?|I want something with (some )?)?panini)",
+        "pasta": "((I want (a|some kind of)? pasta( dish)?|I want something with (some )?)?pasta)",
+        "salad": "((I want (a|some kind of)? salad( dish)?|I want something with (some )?)?salad)",
+        "sandwich": "((I want (a|some kind of)? sandwich( dish)?|I want something with (some )?)?sandwich)",
+        "side": "((I want (a|some kind of)? side( dish)?|I want something with (some )?)?side)",
+        "soup": "((I want (a|some kind of)? soup( dish)?|I want something with (some )?)?soup)",
+        "wrap": "((I want (a|some kind of)? wrap( dish)?|I want something with (some )?)?wrap)",
+        "yogurt": "((I want (a|some kind of)? yogurt( dish)?|I want something with (some )?)?yogurt)"
     },
     "vegetarian": {
         "FALSE": "((I'm|I am) not (a )?vegetarian|I (don't|do not) eat vegetarian|No|no)",
