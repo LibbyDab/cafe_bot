@@ -48,7 +48,7 @@ template inform_alternatives(name, *slots)
 	"The superhero {name} also {for_entry(slots, "info", ", they ", " and they ", name)}."
 	
 	special_case name = "none"
-		"There is no other course which also {for_entry(slots, "info", ", ", " and ", name)}."
+		"There is no other superhero which also {for_entry(slots, "info", ", ", " and ", name)}."
 
 
 # ----------------------------System Confirm----------------------------------#

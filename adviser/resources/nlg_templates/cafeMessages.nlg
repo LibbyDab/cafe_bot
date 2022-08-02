@@ -1,4 +1,4 @@
-# ---------------NEW RULES - SUPERHERO MESSAGES-------------------------
+# ---------------NEW RULES - CAFE MESSAGES-------------------------
 
 template welcomemsg(): "Welcome to Corner Bakery Cafe. How can I help you?"
 template welcomemsg(help): "Sorry, I can't understand you. Please tell me again what you are looking for."
@@ -10,16 +10,72 @@ template closingmsg() : "Have a nice day!"
 
 template request(vegetarian): "Are you vegetarian?"
 template request(contains_nuts): "Are you allergic to nuts?"
-template request(type): "What kind of food are you looking for?"
+template request(type): "What kind of dish are you looking for?"
 
 # Rules for System Inform
 
 function info(slot, value, menu_item)
     if slot = "vegetarian"
         if value = "TRUE": "{menu_item} is vegetarian"
-        if value = "FALSE": "{menu_item} contains meat"
+        if value = "FALSE": "{menu_item} is not vegetarian"
     if slot = "contains_nuts"
         if value = "TRUE": "{menu_item} contains nuts"
         if value = "FALSE": "{menu_item} is nut-free"
-    if slot = "calories": "{menu_item} has \"{value}\" calories"
-    if slot = "price": "{menu_item} is \"{value}\""
+    if slot = "calories": "{menu_item} has {value} calories"
+    if slot = "price": "{menu_item} is {value}"
+
+# -------------------------Only Name Slot-----------------------------------#
+
+template inform_byname(menu_item)
+	"What do you want to know about {menu_item}?"
+
+	special_case menu_item = "none"
+		"I’m sorry, I could not find this dish."
+
+
+template inform_alternatives(menu_item)
+	"We also have {menu_item}. What do you want to know about it?"
+
+	special_case menu_item = "none"
+		"I'm sorry. We don't have another dish that fills these requirements."
+
+#------------------------ Name Slot + Slots----------------------------------#
+
+template inform_byname(menu_item, *slots)
+	"{menu_item} {for_entry(slots, "info", ", they ", " and they ", menu_item)}."
+	
+	special_case menu_item = "none"
+		"I'm sorry. We don't have a dish that {for_entry(slots, "info", ", ", " and ", menu_item)}."
+
+template inform_alternatives(menu_item, *slots)
+	"The dish {menu)item} also {for_entry(slots, "info", ", they ", " and they ", menu_item)}."
+	
+	special_case menu_item = "none"
+		"There is no other course which also {for_entry(slots, "info", ", ", " and ", menu_item)}."
+
+# ----------------------------System Confirm----------------------------------#
+
+template confirm()
+	"Please tell me more about what kind of dish you are looking for."
+template confirm(menu_item, *slots)
+	if menu_item = "none"
+		"Let me confirm, you are looking for a dish which {for_entry(slots, "info", ", ", " and ", menu_item)}, right?"
+template confirm(*slots)
+	"Let me confirm, you are looking for a dish which {for_entry(slots, "info", ", ", " and ", "none")}, right?"
+
+# ---------------------------System RequestMore------------------------------#
+
+template reqmore()
+	"Can I help you with anything else?"
+
+# ---------------------------System Select----------------------------------#
+
+template select(*slot)
+	"Sorry, would you like to have a dish {for_entry(slot, "info_or_dontcare_list", "", "")}?"
+
+function info_or_dontcare_list(slot, value_list)
+	"{for(value_list, "info_or_dontcare", ", ", " or ", slot)}"
+
+function info_or_dontcare(value, slot)
+	"which {info(slot, value, "none")}"
+	special_case value = "dontcare": "you don't care"

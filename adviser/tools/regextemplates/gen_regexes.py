@@ -33,7 +33,9 @@ from tools.regextemplates.rules.regexfile import RegexFile
 def _write_dict_to_file(dict_object: dict, filename: str):
     file_path = os.path.join(head_location, 'resources', 'nlu_regexes', filename)
     with open(file_path, 'w', encoding='utf-8') as file:
-        json.dump(dict_object, file, sort_keys=True)
+        json_string = json.dumps(dict_object, indent=4)
+        file.write(json_string)
+#        json.dump(dict_object, file, sort_keys=True)
 
 
 def _create_request_json(domain: JSONLookupDomain, template: RegexFile):
@@ -53,12 +55,22 @@ def _create_inform_json(domain: JSONLookupDomain, template: RegexFile):
             inform_regex_json[slot][value] = template.create_regex(inform_act)
     return inform_regex_json
 
+def _create_order_json(domain: JSONLookupDomain, template: RegexFile):
+    order_regex_json = {}
+    for slot in domain.get_informable_slots():
+        order_regex_json[slot] = {}
+        for value in domain.get_possible_values(slot):
+            order_act = UserAct(act_type=UserActionType.Order, slot=slot, value=value)
+            order_regex_json[slot][value] = template.create_regex(order_act)
+    return order_regex_json
+
 
 def create_json_from_template(domain: JSONLookupDomain, template_filename: str):
     template = RegexFile(template_filename, domain)
     domain_name = domain.get_domain_name()
     _write_dict_to_file(_create_request_json(domain, template), f'{domain_name}RequestRules.json')
     _write_dict_to_file(_create_inform_json(domain, template), f'{domain_name}InformRules.json')
+#    _write_dict_to_file(_create_order_json(domain, template), f'{domain_name}OrderRules.json')
 
 
 if __name__ == '__main__':

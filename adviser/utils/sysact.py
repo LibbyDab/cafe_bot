@@ -36,8 +36,6 @@ class SysActionType(Enum):
     Bad = 'bad'
     Bye = 'closingmsg'
     ConfirmRequest = 'confreq'
-    Recommend = 'recommend'
-    Checkout = 'checkout'
 
 
 class SysAct(object):
