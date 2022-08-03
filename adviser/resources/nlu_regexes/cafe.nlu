@@ -3,7 +3,7 @@
 rule inform(menu_item)
     "I want to (know|ask) (something )?about the {menu_item}"
     "I have a question about the {menu_item}"
-    "(The )?{menu_item}"
+    "(What|How about )(the|The )?{menu_item}"
 
 rule inform(vegetarian)
     "(I am|I'm) (a )?vegetarian"
@@ -23,23 +23,23 @@ rule inform(contains_nuts)
 
 rule inform(breakfast)
     "(I (don't|do not) want)|((I'm|I am) not interested in) (something|anything for)?breakfast( (food(s)?)|(menu item(s)?)|dish(es)?)?"
-    "(I want|I would like|I'd like) (to order )?something for breakfast"
+    "(I want|I would like|I'd like|I'm looking for )?(to order|get )?(something for )?breakfast"
 
 rule inform(lunch)
     "(I (don't|do not) want)|((I'm|I am) not interested in) (something|anything for)?lunch( (food(s)?)|(menu item(s)?)|dish(es)?)?"
-    "(I want|I would like|I'd like) (to order )?something for lunch"
+    "(I want|I would like|I'd like|I'm looking for )?(to order|get )?(something for )?lunch"
 
 rule inform(dinner)
     "(I (don't|do not) want)|((I'm|I am) not interested in) (something|anything for)?dinner( (food(s)?)|(menu item(s)?)|dish(es)?)?"
-    "(I want|I would like|I'd like) (to order )?something for dinner"
+    "(I want|I would like|I'd like|I'm looking for )?(to order|get )?(something for )?dinner"
 
-rule inform(dessert)
-    "(I (don't|do not) want)|((I'm|I am) not interested in) (something|anything for)?dessert( (food(s)?)|(menu item(s)?)|dish(es)?)?"
-    "(I want|I would like|I'd like) (to order )?something for dessert"
+rule inform(drink)
+    "(I (don't|do not) want)|((I'm|I am) not interested in) (something|anything to)?drink( (food(s)?)|(menu item(s)?)|dish(es)?)?"
+    "(I want|I would like|I'd like|I'm looking for )?(to order|get )?(something to )?drink"
 
 rule inform(type)
-    "I want (a|some kind of) {type}( dish)?"
-    "I want something with (some )?{type}"
+    "(I want )?(a|some kind of) {type}( dish)?"
+    "(I want )?something with (some )?{type}"
 
 
 # user requestable slots are vegetarian, contains_nuts, calories, price

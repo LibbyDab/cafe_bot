@@ -5,7 +5,7 @@
         "breakfast",
         "lunch",
         "dinner",
-        "dessert",
+        "drink",
         "vegetarian",
         "contains_nuts",
         "vegetarian",
@@ -13,7 +13,7 @@
         "breakfast",
         "lunch",
         "dinner",
-        "dessert"
+        "drink"
     ],
     "discourseAct": [
         "ack",
@@ -29,14 +29,14 @@
             "True"
         ],
         "contains_nuts": [
-            "FALSE",
-            "TRUE"
-        ],
-        "dessert": [
             "False",
             "True"
         ],
         "dinner": [
+            "False",
+            "True"
+        ],
+        "drink": [
             "False",
             "True"
         ],
@@ -131,9 +131,10 @@
             "Uptown Turkey Avocado"
         ],
         "type": [
+            "coffee",
             "dessert",
-            "drink",
             "eggs",
+            "lemonade",
             "muffin or bagel",
             "oatmeal",
             "pancakes",
@@ -142,13 +143,15 @@
             "salad",
             "sandwich",
             "side",
+            "soda",
             "soup",
+            "tea",
             "wrap",
             "yogurt"
         ],
         "vegetarian": [
-            "FALSE",
-            "TRUE"
+            "False",
+            "True"
         ]
     },
     "key": "menu_item",
@@ -159,6 +162,9 @@
         "finished",
         "byalternatives",
         "restart"
+    ],
+    "orderable": [
+        "menu_item"
     ],
     "requestable": [
         "vegetarian",
@@ -174,11 +180,8 @@
         "breakfast",
         "lunch",
         "dinner",
-        "dessert",
+        "drink",
         "type"
-    ],
-    "orderable": [
-        "menu_item"
     ],
     "keyword": "cafe"
 }

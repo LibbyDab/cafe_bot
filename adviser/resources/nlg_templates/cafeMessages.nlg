@@ -4,7 +4,7 @@ template welcomemsg(): "Welcome to Corner Bakery Cafe. How can I help you?"
 template welcomemsg(help): "Sorry, I can't understand you. Please tell me again what you are looking for."
 template welcomemsg(more) : "Can I help you with anything else?"
 template bad() : "Sorry I didn't understand that; please tell me again what you are looking for."
-template closingmsg() : "Have a nice day!"
+template closingmsg() : "Thank you for dining at Corner Bakery. Have a nice day!"
 
 # System Requests
 
@@ -15,19 +15,20 @@ template request(type): "What kind of dish are you looking for?"
 # Rules for System Inform
 
 function info(slot, value, menu_item)
-    if slot = "breakfast": "is {either_or(value, "", "not ")} a breakfast item"
-    if slot = "lunch": "is {either_or(value, "", "not ")} a lunch item"
-    if slot = "dinner": "is {either_or(value, "", "not ")} a dinner item"
-    if slot = "vegetarian": "is {either_or(value, "", "not ")} vegetarian"
+    if slot = "breakfast": "is {either_or(value, "", "not ")}a breakfast item"
+    if slot = "lunch": "is {either_or(value, "", "not ")}a lunch item"
+    if slot = "dinner": "is {either_or(value, "", "not ")}a dinner item"
+    if slot = "vegetarian": "is {either_or(value, "", "not ")}vegetarian"
     if slot = "contains_nuts"
         if value = "True": "contains nuts"
         if value = "False": "is nut-free"
     if slot = "calories": "has {value} calories"
     if slot = "price": "is {value}"
     if slot = "type"
+        if value = "coffee": "is a coffee"
         if value = "dessert": "is a dessert"
-        if value = "drink": "is a drink"
         if value = "eggs": "is an egg dish"
+        if value = "lemonade": "is a lemonade"
         if value = "muffin or bagel": "includes either a muffin or a bagel"
         if value = "oatmeal": "is an oatmeal dish"
         if value = "pancakes": "is a pancake dish"
@@ -36,7 +37,9 @@ function info(slot, value, menu_item)
         if value = "salad": "is a salad"
         if value = "sandwich": "is a sandwich"
         if value = "side": "is a side"
+        if value = "soda": "is a soda"
         if value = "soup": "is a soup"
+        if value = "tea": "is a tea"
         if value = "wrap": "is a wrap"
         if value = "yogurt": "is a yogurt dish"
 
@@ -72,13 +75,15 @@ template inform_alternatives(menu_item, *slots)
 	special_case menu_item = "none"
 		"There is no other course which also {for_entry(slots, "info", ", ", " and ", menu_item)}."
 
-# ----------------------------System Confirm----------------------------------#
-
-template confirm(menu_item)
-	if menu_item = "none"
-		"Let me confirm, you want to order the {menu_item}, right?"
-
 # ---------------------------System RequestMore------------------------------#
 
 template reqmore()
 	"Can I help you with anything else?"
+
+# ---------------------------System Order & Checkout------------------------------#
+
+template order(menu_item): "I have added a {menu_item} to your order."
+
+template unorderable(menu_item): "I'm sorry, the {menu_item} is out of stock."
+
+# template checkout(order, *menu_items, total_price): "Your have ordered {for_entry(menu_items, "info", ", ", " and ", order)}."
