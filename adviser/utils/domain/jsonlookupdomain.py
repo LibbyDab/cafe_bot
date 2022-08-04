@@ -188,10 +188,10 @@ class JSONLookupDomain(Domain):
         """ Returns a list of all informable slots. """
         return self.ontology_json['informable'].keys()
 
-#    def get_orderable_slots(self) -> List[str]:
-#        """ Returns a list of all slots requestable by the user. """
-#        return self.ontology_json['orderable']
-#
+    def get_orderable_slots(self) -> List[str]:
+        """ Returns a list of all slots requestable by the user. """
+        return self.ontology_json['orderable']
+
     def get_possible_values(self, slot: str) -> List[str]:
         """ Returns all possible values for an informable slot
 

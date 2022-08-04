@@ -68,7 +68,7 @@ def _create_order_json(domain: JSONLookupDomain, template: RegexFile):
 def create_json_from_template(domain: JSONLookupDomain, template_filename: str):
     template = RegexFile(template_filename, domain)
     domain_name = domain.get_domain_name()
-    _write_dict_to_file(_create_request_json(domain, template), f'{domain_name}RequestRules.json')
+#    _write_dict_to_file(_create_request_json(domain, template), f'{domain_name}RequestRules.json')
     _write_dict_to_file(_create_inform_json(domain, template), f'{domain_name}InformRules.json')
 #    _write_dict_to_file(_create_order_json(domain, template), f'{domain_name}OrderRules.json')
 

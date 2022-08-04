@@ -150,5 +150,13 @@ class HandcraftedBST(Service):
                 # This way it is clear that the user is no longer asking about that one item
                 if self.domain.get_primary_key() in self.bs['informs']:
                     del self.bs['informs'][self.domain.get_primary_key()]
-#            elif act.type == UserActionType.Order:
-#                self.bs['order'].append(act.value)
+            elif act.type == UserActionType.Order:
+                # use beliefstate['informs'] to store/reference menu_items so policy_handcrafted._get_name(beliefstate) works
+                # clear informs of any previously mentioned menu items
+                if self.domain.get_primary_key() in self.bs['informs']:
+                    del self.bs['informs'][self.domain.get_primary_key()]
+                # add informs and their scores to the beliefstate
+                if act.slot in self.bs["informs"]:
+                    self.bs['informs'][act.slot][act.value] = act.score
+                else:
+                    self.bs['informs'][act.slot] = {act.value: act.score}

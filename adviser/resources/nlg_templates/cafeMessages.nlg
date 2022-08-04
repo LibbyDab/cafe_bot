@@ -1,10 +1,11 @@
-# ---------------NEW RULES - CAFE MESSAGES-------------------------
+# ---------------NEW RULES - CAFE MESSAGES------------------------- #
 
 template welcomemsg(): "Welcome to Corner Bakery Cafe. How can I help you?"
 template welcomemsg(help): "Sorry, I can't understand you. Please tell me again what you are looking for."
 template welcomemsg(more) : "Can I help you with anything else?"
 template bad() : "Sorry I didn't understand that; please tell me again what you are looking for."
 template closingmsg() : "Thank you for dining at Corner Bakery. Have a nice day!"
+# template checkout(order, total_price): "Your have ordered {for_entry(menu_items, "info", ", ", " and ", order)}. Your Total is {total_price}"
 
 # System Requests
 
@@ -47,7 +48,7 @@ function either_or(boolean, if_true, if_false)
 	if boolean = "True": "{if_true}"
 	if boolean = "False": "{if_false}"
 
-# -------------------------Only Name Slot-----------------------------------#
+# -------------------------Only Name Slot----------------------------------- #
 
 template inform_byname(menu_item)
 	"What do you want to know about the {menu_item}?"
@@ -61,7 +62,7 @@ template inform_alternatives(menu_item)
 	special_case menu_item = "none"
 		"I'm sorry. We don't have another dish that fills these requirements."
 
-#------------------------ Name Slot + Slots----------------------------------#
+# ------------------------ Name Slot + Slots---------------------------------- #
 
 template inform_byname(menu_item, *slots)
 	"The {menu_item} {for_entry(slots, "info", ", ", " and ", menu_item)}."
@@ -75,15 +76,13 @@ template inform_alternatives(menu_item, *slots)
 	special_case menu_item = "none"
 		"There is no other course which also {for_entry(slots, "info", ", ", " and ", menu_item)}."
 
-# ---------------------------System RequestMore------------------------------#
+# ---------------------------System RequestMore------------------------------ #
 
 template reqmore()
-	"Can I help you with anything else?"
+	"What else can I help you with?"
 
-# ---------------------------System Order & Checkout------------------------------#
+# ---------------------------System Order & Unorderable ------------------------------ #
 
 template order(menu_item): "I have added a {menu_item} to your order."
 
-template unorderable(menu_item): "I'm sorry, the {menu_item} is out of stock."
-
-# template checkout(order, *menu_items, total_price): "Your have ordered {for_entry(menu_items, "info", ", ", " and ", order)}."
+template unorderable(menu_item): "I'm sorry, the {menu_item} is out of stock. Please choose something else."

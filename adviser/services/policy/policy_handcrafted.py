@@ -127,6 +127,10 @@ class HandcraftedPolicy(Service):
         elif UserActionType.Thanks in beliefstate["user_acts"]:
             sys_act = SysAct()
             sys_act.type = SysActionType.RequestMore
+#        # if user says they want to checkout, list their order and total price
+#        elif UserActionType.Checkout in beliefstate['user_acts']:
+#            sys_act = SysAct()
+#            sys_act.type = SysActionType.Checkout
         # If user only says hello, request a random slot to move dialog along
         elif UserActionType.Hello in beliefstate["user_acts"] or UserActionType.SelectDomain in beliefstate["user_acts"]:
             # as long as there are open slots, choose one randomly
@@ -298,18 +302,31 @@ class HandcraftedPolicy(Service):
             sys_act.type = SysActionType.Bad
             return sys_act, {'last_act': sys_act}
 
-#        if UserActionType.Order in beliefstate['user_acts']:
-#            sys_act = SysAct()
-#            sys_act.type = SysActionType.Confirm
-#
-#        elif UserActionType.RequestAlternatives in beliefstate['user_acts'] \
-#                and not self._get_constraints(beliefstate)[0]:
-#            sys_act = SysAct()
-#            sys_act.type = SysActionType.Bad
-#            return sys_act, {'last_act': sys_act}
-#
+        elif UserActionType.Order in beliefstate['user_acts']:
+            try:
+                float((self.domain.find_info_about_entity(self._get_name(beliefstate), {'price'}))[0].get('price'))
+                sys_act = SysAct()
+                sys_act.type = SysActionType.Order
+                sys_act.add_value(self.domain.get_primary_key(), self._get_name(beliefstate))
+                # append order to the belief state
+                beliefstate['order'].append(self._get_name(beliefstate))
+                # sum total price in the belief state
+                beliefstate['total_price'][0] += float((self.domain.find_info_about_entity(self._get_name(beliefstate), {'price'}))[0].get('price'))
+                return sys_act, {'last_act': sys_act}
+            except ValueError:
+                sys_act = SysAct()
+                sys_act.type = SysActionType.Unorderable
+                sys_act.add_value(self.domain.get_primary_key(), self._get_name(beliefstate))
+                return sys_act, {'last_act': sys_act}            
+
+        elif UserActionType.RequestAlternatives in beliefstate['user_acts'] \
+                and not self._get_constraints(beliefstate)[0]:
+            sys_act = SysAct()
+            sys_act.type = SysActionType.Bad
+            return sys_act, {'last_act': sys_act}
+
         elif self.domain.get_primary_key() in beliefstate['informs'] \
-                and not beliefstate['requests']:
+                and not beliefstate['requests']:# \
             sys_act = SysAct()
             sys_act.type = SysActionType.InformByName
             sys_act.add_value(self.domain.get_primary_key(), self._get_name(beliefstate))
@@ -325,7 +342,7 @@ class HandcraftedPolicy(Service):
                 sys_state['lastRequestSlot'] = list(sys_act.slot_values.keys())[0]
 
         # otherwise we need to convert a raw inform into a one with proper slots and values
-        elif sys_act.type == SysActionType.InformByName:
+        elif sys_act.type == SysActionType.InformByName:# or sys_act.type == SysActionType.Order:
             self._convert_inform(results, sys_act, beliefstate)
             # update belief state to reflect the offer we just made
             values = sys_act.get_values(self.domain.get_primary_key())

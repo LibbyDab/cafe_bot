@@ -155,6 +155,13 @@ def run_questions(db: Database):
             'name': 'informable',
             'message': 'Select informable slots',
             'choices': lambda answers: [{'name': slot} for slot in db.get_slots(answers['table'])]
+        },
+        {
+            'type': 'checkbox',
+            'qmark': '>>>',
+            'name': 'orderable',
+            'message': 'Select orderable slots',
+            'choices': lambda answers: [{'name': slot} for slot in db.get_slots(answers['table'])]            
         }]
     answers_ = prompt(questions, style=custom_style_2)
     # check whether there are answers (e.g. if the user cancels the prompt using Ctrl+c)
