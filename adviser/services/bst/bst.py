@@ -160,3 +160,11 @@ class HandcraftedBST(Service):
                     self.bs['informs'][act.slot][act.value] = act.score
                 else:
                     self.bs['informs'][act.slot] = {act.value: act.score}
+                try:
+                    price = float((self.domain.find_info_about_entity(act.value, {'price'}))[0].get('price'))
+                    # append order to the belief state
+                    self.bs['order'].append(act.value)
+                    # sum total price in the belief state
+                    self.bs['total_price'][0] += price
+                except:
+                    pass

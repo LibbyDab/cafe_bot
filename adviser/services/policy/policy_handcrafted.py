@@ -127,10 +127,13 @@ class HandcraftedPolicy(Service):
         elif UserActionType.Thanks in beliefstate["user_acts"]:
             sys_act = SysAct()
             sys_act.type = SysActionType.RequestMore
-#        # if user says they want to checkout, list their order and total price
-#        elif UserActionType.Checkout in beliefstate['user_acts']:
-#            sys_act = SysAct()
-#            sys_act.type = SysActionType.Checkout
+        # if user says they want to checkout, list their order and total price
+        elif UserActionType.Checkout in beliefstate['user_acts']:
+            sys_act = SysAct()
+            sys_act.type = SysActionType.Checkout
+            for menu_item in beliefstate['order']:
+                sys_act.add_value('order', menu_item)
+            sys_act.add_value('total_price', str("{:.2f}".format(beliefstate['total_price'][0])))
         # If user only says hello, request a random slot to move dialog along
         elif UserActionType.Hello in beliefstate["user_acts"] or UserActionType.SelectDomain in beliefstate["user_acts"]:
             # as long as there are open slots, choose one randomly
@@ -308,10 +311,6 @@ class HandcraftedPolicy(Service):
                 sys_act = SysAct()
                 sys_act.type = SysActionType.Order
                 sys_act.add_value(self.domain.get_primary_key(), self._get_name(beliefstate))
-                # append order to the belief state
-                beliefstate['order'].append(self._get_name(beliefstate))
-                # sum total price in the belief state
-                beliefstate['total_price'][0] += float((self.domain.find_info_about_entity(self._get_name(beliefstate), {'price'}))[0].get('price'))
                 return sys_act, {'last_act': sys_act}
             except ValueError:
                 sys_act = SysAct()

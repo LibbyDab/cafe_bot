@@ -38,7 +38,7 @@ class SysActionType(Enum):
     ConfirmRequest = 'confreq'
     Order = 'order'
     Unorderable = 'unorderable'
-#    Checkout = 'checkout'
+    Checkout = 'checkout'
 
 
 class SysAct(object):
