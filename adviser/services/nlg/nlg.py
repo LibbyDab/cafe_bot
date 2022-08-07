@@ -99,11 +99,6 @@ class HandcraftedNLG(Service):
         message = ""
         try:
             message = self.templates.create_message(sys_act)
-#        except KeyError:
-#            ''.join([message, 'Your order is '])
-#            for menu_item in beliefstate['order']:
-#                ''.join([message, '1 ', menu_item, ',\n'])
-#            ''.join([message, '.\nYour total comes to ', beliefstate['total_price'][0]])
         except BaseException as error:
             rule_found = False
             self.logger.error(error)

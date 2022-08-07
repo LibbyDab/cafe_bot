@@ -57,7 +57,7 @@ def _create_inform_json(domain: JSONLookupDomain, template: RegexFile):
 
 def _create_order_json(domain: JSONLookupDomain, template: RegexFile):
     order_regex_json = {}
-    for slot in domain.get_informable_slots():
+    for slot in domain.get_orderable_slots():
         order_regex_json[slot] = {}
         for value in domain.get_possible_values(slot):
             order_act = UserAct(act_type=UserActionType.Order, slot=slot, value=value)

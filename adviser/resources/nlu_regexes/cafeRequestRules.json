@@ -1,7 +1,7 @@
 {
-    "vegetarian": "(Is (this|that|it) vegetarian|Does (this|that|it) (contain|have) meat)",
-    "contains_nuts": "(Is (this|that|it) (nut-free|nut free|without (any )?nuts)|Does (this|that|it) (contain|have) (any )?nuts|Is (this|that|it) safe for people with (nut allergies|a sensitivity to nuts))",
-    "calories": "(How many calories (does (this|that|it) have|((are in)|(is)) (this|that|it))|(What is|What's) (the calorie count( of (this|that|it))?|(that's|its('s|')) calorie count))",
-    "price": "(How much (is (this|that|it))|(does (this|that|it) cost)|(What is|What's) (the (price|cost) of (this|that|it))|(that's|its('s|')) (price|cost))",
+    "vegetarian": "(vegetarian|meat)",
+    "nut_free": "(nut)",
+    "calories": "(calorie)",
+    "price": "(How much|cost|price)",
     "type": "(What (kind of (dish|food) )?is (this|that|it))"
 }

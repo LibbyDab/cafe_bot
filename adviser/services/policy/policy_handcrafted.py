@@ -201,6 +201,7 @@ class HandcraftedPolicy(Service):
         """
         # determine if an entity has already been suggested or was mentioned by the user
         name = self._get_name(beliefstate)
+        print('policy_handcrafted: 204', name)
         # if yes and the user is asking for info about a specific entity, generate a query to get
         # that info for the slots they have specified
         if name and beliefstate['requests']:
@@ -316,7 +317,7 @@ class HandcraftedPolicy(Service):
                 sys_act = SysAct()
                 sys_act.type = SysActionType.Unorderable
                 sys_act.add_value(self.domain.get_primary_key(), self._get_name(beliefstate))
-                return sys_act, {'last_act': sys_act}            
+                return sys_act, {'last_act': sys_act}
 
         elif UserActionType.RequestAlternatives in beliefstate['user_acts'] \
                 and not self._get_constraints(beliefstate)[0]:
@@ -341,7 +342,7 @@ class HandcraftedPolicy(Service):
                 sys_state['lastRequestSlot'] = list(sys_act.slot_values.keys())[0]
 
         # otherwise we need to convert a raw inform into a one with proper slots and values
-        elif sys_act.type == SysActionType.InformByName:# or sys_act.type == SysActionType.Order:
+        elif sys_act.type == SysActionType.InformByName:
             self._convert_inform(results, sys_act, beliefstate)
             # update belief state to reflect the offer we just made
             values = sys_act.get_values(self.domain.get_primary_key())

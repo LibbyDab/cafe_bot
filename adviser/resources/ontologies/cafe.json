@@ -1,15 +1,15 @@
 {
     "binary": [
         "vegetarian",
-        "contains_nuts",
+        "nut_free",
         "breakfast",
         "lunch",
         "dinner",
         "drink",
         "vegetarian",
-        "contains_nuts",
+        "nut_free",
         "vegetarian",
-        "contains_nuts",
+        "nut_free",
         "breakfast",
         "lunch",
         "dinner",
@@ -25,24 +25,24 @@
     ],
     "informable": {
         "breakfast": [
-            "False",
-            "True"
+            "false",
+            "true"
         ],
-        "contains_nuts": [
-            "False",
-            "True"
+        "nut_free": [
+            "false",
+            "true"
         ],
         "dinner": [
-            "False",
-            "True"
+            "false",
+            "true"
         ],
         "drink": [
-            "False",
-            "True"
+            "false",
+            "true"
         ],
         "lunch": [
-            "False",
-            "True"
+            "false",
+            "true"
         ],
         "menu_item": [
             "All-American Scrambler",
@@ -150,8 +150,8 @@
             "yogurt"
         ],
         "vegetarian": [
-            "False",
-            "True"
+            "false",
+            "true"
         ]
     },
     "key": "menu_item",
@@ -168,7 +168,7 @@
     ],
     "requestable": [
         "vegetarian",
-        "contains_nuts",
+        "nut_free",
         "calories",
         "price",
         "type"
@@ -176,11 +176,7 @@
     "system_requestable": [
         "menu_item",
         "vegetarian",
-        "contains_nuts",
-        "breakfast",
-        "lunch",
-        "dinner",
-        "drink",
+        "nut_free",
         "type"
     ],
     "keyword": "cafe"

@@ -1,46 +1,30 @@
 # user informable slots are menu_item, vegetarian, contains_nuts, breakfast, lunch, dinner, dessert, type
 
 rule inform(menu_item)
-    "I want to (know|ask) (something )?about the {menu_item}"
-    "I have a question about the {menu_item}"
-    "(What|How about )(the|The )?{menu_item}"
+    "{menu_item}"
 
 rule inform(vegetarian)
-    "(I am|I'm) (a )?vegetarian"
-    "I eat vegetarian"
-    "I (don't|do not|can't|can not) eat meat"
-    "Yes|yes"
-    "(I'm|I am) not (a )?vegetarian"
-    "I (don't|do not) eat vegetarian"
-    "No|no"
+    "with|has meat"
+    "I (don't|do not|can't|can not) eat|like meat|(without|no) meat|vegetarian"
 
-rule inform(contains_nuts)
-    "(I am|I'm) allergic to nuts"
-    "I have a nut allergy"
-    "Yes|yes"
-    "(I am|I'm) not allergic to nuts"
-    "No|no"
+rule inform(nut_free)
+    "with|has nuts"
+    "I (don't|do not|can't|can not) eat|like nuts|(I am|I'm) allergic( to nuts)?|I have a nut allergy|nut-free|(without|no) nuts"
 
 rule inform(breakfast)
-    "(I (don't|do not) want)|((I'm|I am) not interested in) (something|anything for)?breakfast( (food(s)?)|(menu item(s)?)|dish(es)?)?"
-    "(I want|I would like|I'd like|I'm looking for )?(to order|get )?(something for )?breakfast"
+    "breakfast"
 
 rule inform(lunch)
-    "(I (don't|do not) want)|((I'm|I am) not interested in) (something|anything for)?lunch( (food(s)?)|(menu item(s)?)|dish(es)?)?"
-    "(I want|I would like|I'd like|I'm looking for )?(to order|get )?(something for )?lunch"
+    "lunch"
 
 rule inform(dinner)
-    "(I (don't|do not) want)|((I'm|I am) not interested in) (something|anything for)?dinner( (food(s)?)|(menu item(s)?)|dish(es)?)?"
-    "(I want|I would like|I'd like|I'm looking for )?(to order|get )?(something for )?dinner"
+    "dinner"
 
 rule inform(drink)
-    "(I (don't|do not) want)|((I'm|I am) not interested in) (something|anything to)?drink( (food(s)?)|(menu item(s)?)|dish(es)?)?"
-    "(I want|I would like|I'd like|I'm looking for )?(to order|get )?(something to )?drink"
+    "drink"
 
 rule inform(type)
-    "(I want )?(a|some kind of) {type}( dish)?"
-    "(I want )?something with (some )?{type}"
-
+    "{type}"
 
 # user requestable slots are vegetarian, contains_nuts, calories, price
 
@@ -64,8 +48,7 @@ rule request(price)
 # user orderable slots are menu_item
 
 rule order(menu_item)
-    "(I want|I would like|I'd like) (to order )?(a|an|the|A|An|The) {menu_item}( please)?"
-    "(Can|May) I (please )?(get|order|have) (a|an|the) {menu_item}"
+    "((I want |I would like |I'd like |(Can|May) I )?(to )?(please )?(order |get |have )?(a |an |another |the |A |An |The ){menu_item}(,? please)?($|\\.)?)"
 
 # synonyms
 

@@ -152,9 +152,6 @@ class HandcraftedBST(Service):
                     del self.bs['informs'][self.domain.get_primary_key()]
             elif act.type == UserActionType.Order:
                 # use beliefstate['informs'] to store/reference menu_items so policy_handcrafted._get_name(beliefstate) works
-                # clear informs of any previously mentioned menu items
-                if self.domain.get_primary_key() in self.bs['informs']:
-                    del self.bs['informs'][self.domain.get_primary_key()]
                 # add informs and their scores to the beliefstate
                 if act.slot in self.bs["informs"]:
                     self.bs['informs'][act.slot][act.value] = act.score
@@ -166,5 +163,13 @@ class HandcraftedBST(Service):
                     self.bs['order'].append(act.value)
                     # sum total price in the belief state
                     self.bs['total_price'][0] += price
-                except:
+                    print('bst.py: 169', self.bs['order'], self.bs['total_price'][0])
+                except LookupError:
+                        price = float((self.domain.find_info_about_entity(list(self.bs['informs']['menu_item'].keys())[0], {'price'}))[0].get('price'))
+                        # append order to the belief state
+                        self.bs['order'].append(list(self.bs['informs']['menu_item'].keys())[0])
+                        # sum total price in the belief state
+                        self.bs['total_price'][0] += price
+                        print('bst.py: 174', self.bs['order'], self.bs['total_price'][0])
+                except ValueError:
                     pass

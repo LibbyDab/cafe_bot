@@ -4,12 +4,12 @@ template welcomemsg(): "Welcome to Corner Bakery Cafe. How can I help you?"
 template welcomemsg(help): "Sorry, I can't understand you. Please tell me again what you are looking for."
 template welcomemsg(more) : "Can I help you with anything else or are you ready to checkout?"
 template bad() : "Sorry I didn't understand that; please tell me again what you are looking for."
-template closingmsg() : "Thank you for dining at Corner Bakery. Bon Appetit!"
+template closingmsg() : "Have a nice day!"
 
 # System Requests
 
 template request(vegetarian): "Do you want something vegetarian?"
-template request(contains_nuts): "Are you allergic to nuts?"
+template request(nut_free): "Are you allergic to nuts?"
 template request(type): "What kind of dish are you looking for?"
 
 # Rules for System Inform
@@ -18,10 +18,11 @@ function info(slot, value, menu_item)
     if slot = "breakfast": "is {either_or(value, "", "not ")}a breakfast item"
     if slot = "lunch": "is {either_or(value, "", "not ")}a lunch item"
     if slot = "dinner": "is {either_or(value, "", "not ")}a dinner item"
+    if slot = "drink": "is {either_or(value, "", "not ")}a drink"
     if slot = "vegetarian": "is {either_or(value, "", "not ")}vegetarian"
-    if slot = "contains_nuts"
-        if value = "True": "contains nuts"
-        if value = "False": "is nut-free"
+    if slot = "nut_free"
+        if value = "true": "is nut-free"
+        if value = "false": "contains nuts"
     if slot = "calories": "has {value} calories"
     if slot = "price": "is {value}"
     if slot = "type"
@@ -44,8 +45,8 @@ function info(slot, value, menu_item)
         if value = "yogurt": "is a yogurt dish"
 
 function either_or(boolean, if_true, if_false)
-	if boolean = "True": "{if_true}"
-	if boolean = "False": "{if_false}"
+	if boolean = "true": "{if_true}"
+	if boolean = "false": "{if_false}"
 
 # -------------------------Only Name Slot----------------------------------- #
 
@@ -88,5 +89,5 @@ template unorderable(menu_item): "I'm sorry, the {menu_item} is out of stock. Pl
 
 # ---------------------------System Checkout ------------------------------ #
 
-template checkout(total_price, order, *menu_item) : "Your order comes to {total_price}"
+template checkout(total_price, order) : "Your total comes to {total_price}. Thank you for dining at Corner Bakery. Bon Appetit!"
 # see nlg.py lines 102-106
