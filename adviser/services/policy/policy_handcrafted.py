@@ -17,6 +17,7 @@
 #
 ###############################################################################
 
+import random
 from collections import defaultdict
 from typing import List, Dict
 
@@ -212,8 +213,8 @@ class HandcraftedPolicy(Service):
         # has given so far
         else:
             constraints, _ = self._get_constraints(beliefstate)
-            print('policy_handcrafted.py: 215', constraints)
-            return self.domain.find_entities(constraints)
+            results = random.sample(self.domain.find_entities(constraints), len(self.domain.find_entities(constraints)))
+            return results
 
     def _get_name(self, beliefstate: BeliefState):
         """Finds if an entity has been suggested by the system (in the form of an offer candidate)
@@ -306,11 +307,10 @@ class HandcraftedPolicy(Service):
                 and not self._get_name(beliefstate):
             sys_act = SysAct()
             sys_act.type = SysActionType.Bad
-            print('policy_handcrafted: 308')
+            print('policy_handcrafted: 310')
             return sys_act, {'last_act': sys_act}
 
         elif UserActionType.Order in beliefstate['user_acts']:
-            print('policy_handcrafted.py: 313', self.domain.get_primary_key(), self._get_name(beliefstate))
             try:
                 float((self.domain.find_info_about_entity(self._get_name(beliefstate), {'price'}))[0].get('price'))
                 sys_act = SysAct()
@@ -331,10 +331,11 @@ class HandcraftedPolicy(Service):
             return sys_act, {'last_act': sys_act}
 
         elif self.domain.get_primary_key() in beliefstate['informs'] \
-                and not beliefstate['requests']:# \
+                and not beliefstate['requests']:
             sys_act = SysAct()
             sys_act.type = SysActionType.InformByName
             sys_act.add_value(self.domain.get_primary_key(), self._get_name(beliefstate))
+            print('policy_handcrafted.py: 339')
             return sys_act, {'last_act': sys_act}
 
         # Otherwise we need to query the db to determine next action
@@ -358,7 +359,6 @@ class HandcraftedPolicy(Service):
                 sys_act.add_value(self.domain.get_primary_key(), 'none')
 
         sys_state['last_act'] = sys_act
-        print('policy_handcrafted: 361', sys_state, '\n', beliefstate['informs'])
         return (sys_act, sys_state)
 
     def _raw_action(self, q_res: iter, beliefstate: BeliefState) -> SysAct:
