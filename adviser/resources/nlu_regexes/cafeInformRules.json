@@ -44,8 +44,8 @@
         "Classic Caesar with Chicken": "(Classic Caesar with Chicken)",
         "Classic Caesar with Shrimp": "(Classic Caesar with Shrimp)",
         "Club": "(Club)",
-        "Cold Brew (black)": "(Black Cold Brew)",
-        "Cold Brew (vanilla sweet cream)": "(Cold Brew with Vanilla Sweet Cream)",
+        "Cold Brew (black)": "((Black.*Cold Brew)|(Cold Brew.*Black))",
+        "Cold Brew (vanilla sweet cream)": "((Vanilla.*Cold Brew)|(Cold Brew.*Vanilla))",
         "Cream Cheese Brownie": "(Cream Cheese Brownie)",
         "Denver Frittata Bites": "(Denver Frittata Bites)",
         "Fountain Soda": "(Fountain Soda)",
@@ -96,8 +96,8 @@
         "true": "(I (don't|do not|can't|can not) eat|like nuts|(I am|I'm) allergic( to nuts)?|I have a nut allergy|nut-free|(without|no) nuts)"
     },
     "temp": {
-        "hot": "(hot|warm)",
-        "cold": "(cold|chill)"
+        "hot": "((hot(?! chocolate))|warm)",
+        "cold": "(cold|chill|ice|cool)"
     },
     "type": {
         "baby bundt": "(bundt)",

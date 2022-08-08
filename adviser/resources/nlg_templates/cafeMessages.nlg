@@ -61,13 +61,13 @@ template inform_byname(menu_item)
 	"What do you want to know about the {menu_item}?"
 
 	special_case menu_item = "none"
-		"I’m sorry, I could not find this dish."
+		"I’m sorry, I could not find this item."
 
 template inform_alternatives(menu_item)
 	"We also have {menu_item}. What do you want to know about it?"
 
 	special_case menu_item = "none"
-		"I'm sorry. We don't have another dish that fills these requirements."
+		"I'm sorry. We don't have another item that fills these requirements."
 
 # ------------------------ Name Slot + Slots---------------------------------- #
 
@@ -75,10 +75,10 @@ template inform_byname(menu_item, *slots)
 	"The {menu_item} is {for_entry(slots, "info", ", ", ", and ", menu_item)}."
 
 	special_case menu_item = "none"
-		"I'm sorry. We don't have a dish that is {for_entry(slots, "info", ", ", ", and ", menu_item)}."
+		"I'm sorry. We don't have an item that is {for_entry(slots, "info", ", ", ", and ", menu_item)}."
 
 template inform_alternatives(menu_item, *slots)
-	"The dish {menu_item} is also {for_entry(slots, "info", ", ", ", and ", menu_item)}."
+	"The {menu_item} is also {for_entry(slots, "info", ", ", ", and ", menu_item)}."
 	
 	special_case menu_item = "none"
 		"There is no other course which is also {for_entry(slots, "info", ", ", ", and ", menu_item)}."

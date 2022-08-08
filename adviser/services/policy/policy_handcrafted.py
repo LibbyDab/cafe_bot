@@ -203,7 +203,6 @@ class HandcraftedPolicy(Service):
         """
         # determine if an entity has already been suggested or was mentioned by the user
         name = self._get_name(beliefstate)
-        print('policy_handcrafted: 204', name)
         # if yes and the user is asking for info about a specific entity, generate a query to get
         # that info for the slots they have specified
         if name and beliefstate['requests']:
@@ -312,7 +311,13 @@ class HandcraftedPolicy(Service):
 
         elif UserActionType.Order in beliefstate['user_acts']:
             try:
-                float((self.domain.find_info_about_entity(self._get_name(beliefstate), {'price'}))[0].get('price'))
+                menu_item = self._get_name(beliefstate)
+                price = float((self.domain.find_info_about_entity(menu_item, {'price'}))[0].get('price'))
+                # append order to the belief state
+                beliefstate['order'].append(menu_item)
+                # sum total price in the belief state
+                beliefstate['total_price'][0] += price
+                print('policy_handcrafted.py: 320', beliefstate['order'], beliefstate['total_price'][0])
                 sys_act = SysAct()
                 sys_act.type = SysActionType.Order
                 sys_act.add_value(self.domain.get_primary_key(), self._get_name(beliefstate))

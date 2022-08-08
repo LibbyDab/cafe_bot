@@ -135,7 +135,6 @@ class HandcraftedBST(Service):
         for act in user_acts:
             if act.type == UserActionType.Request:
                 self.bs['requests'][act.slot] = act.score
-                print('bst.py: 138')
             elif act.type == UserActionType.Inform:
                 # add informs and their scores to the beliefstate
                 if act.slot in self.bs["informs"]:
@@ -152,22 +151,13 @@ class HandcraftedBST(Service):
                 if self.domain.get_primary_key() in self.bs['informs']:
                     del self.bs['informs'][self.domain.get_primary_key()]
             elif act.type == UserActionType.Order:
-                # use beliefstate['informs'] to store/reference menu_items so policy_handcrafted._get_name(beliefstate) works
+                # use beliefstate['informs'] to store/reference menu_items so policy_handcrafted._get_name(beliefstate) works nicely
                 # add informs and their scores to the beliefstate
                 if act.slot in self.bs["informs"]:
                     self.bs['informs'][act.slot][act.value] = act.score
                 else:
                     self.bs['informs'][act.slot] = {act.value: act.score}
-                try:
-                    menu_item = list(self.bs['informs']['menu_item'].keys())[0]
-                    price = float((self.domain.find_info_about_entity(menu_item, {'price'}))[0].get('price'))
-                except KeyError:
-                    print('bst.py: 164 did not add to cart')
-                    continue
-                except ValueError:
-                    continue
-                # append order to the belief state
-                self.bs['order'].append(menu_item)
-                # sum total price in the belief state
-                self.bs['total_price'][0] += price
-                print('bst.py: 175 cart', self.bs['order'], self.bs['total_price'][0])
+                # see policy_handcrafted 314-319 
+                # ordering belief state handled in policy so most recently system recommended menu item can be added using pronoun
+
+
