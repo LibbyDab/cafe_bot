@@ -2,18 +2,13 @@
     "binary": [
         "vegetarian",
         "nut_free",
-        "breakfast",
-        "lunch",
-        "dinner",
-        "drink",
+        "temp",
         "vegetarian",
         "nut_free",
+        "temp",
         "vegetarian",
         "nut_free",
-        "breakfast",
-        "lunch",
-        "dinner",
-        "drink"
+        "temp"
     ],
     "discourseAct": [
         "ack",
@@ -24,25 +19,11 @@
         "bad"
     ],
     "informable": {
-        "breakfast": [
-            "false",
-            "true"
-        ],
-        "nut_free": [
-            "false",
-            "true"
-        ],
-        "dinner": [
-            "false",
-            "true"
-        ],
-        "drink": [
-            "false",
-            "true"
-        ],
-        "lunch": [
-            "false",
-            "true"
+        "meal": [
+            "breakfast",
+            "dessert",
+            "drink",
+            "lunch or diner"
         ],
         "menu_item": [
             "All-American Scrambler",
@@ -130,10 +111,21 @@
             "Tuscan Grilled Cheese",
             "Uptown Turkey Avocado"
         ],
+        "nut_free": [
+            "false",
+            "true"
+        ],
+        "temp": [
+            "cold",
+            "hot"
+        ],
         "type": [
+            "baby bundt",
+            "bar",
             "coffee",
-            "dessert",
+            "cookie",
             "eggs",
+            "hot chocolate",
             "lemonade",
             "muffin or bagel",
             "oatmeal",
@@ -171,13 +163,16 @@
         "nut_free",
         "calories",
         "price",
-        "type"
+        "type",
+        "temp",
+        "meal"
     ],
     "system_requestable": [
         "menu_item",
         "vegetarian",
         "nut_free",
-        "type"
+        "type",
+        "temp"
     ],
     "keyword": "cafe"
 }

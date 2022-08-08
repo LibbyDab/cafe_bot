@@ -135,6 +135,7 @@ class HandcraftedBST(Service):
         for act in user_acts:
             if act.type == UserActionType.Request:
                 self.bs['requests'][act.slot] = act.score
+                print('bst.py: 138', act.score)
             elif act.type == UserActionType.Inform:
                 # add informs and their scores to the beliefstate
                 if act.slot in self.bs["informs"]:
@@ -158,18 +159,19 @@ class HandcraftedBST(Service):
                 else:
                     self.bs['informs'][act.slot] = {act.value: act.score}
                 try:
-                    price = float((self.domain.find_info_about_entity(act.value, {'price'}))[0].get('price'))
-                    # append order to the belief state
-                    self.bs['order'].append(act.value)
-                    # sum total price in the belief state
-                    self.bs['total_price'][0] += price
-                    print('bst.py: 169', self.bs['order'], self.bs['total_price'][0])
-                except LookupError:
-                        price = float((self.domain.find_info_about_entity(list(self.bs['informs']['menu_item'].keys())[0], {'price'}))[0].get('price'))
-                        # append order to the belief state
-                        self.bs['order'].append(list(self.bs['informs']['menu_item'].keys())[0])
-                        # sum total price in the belief state
-                        self.bs['total_price'][0] += price
-                        print('bst.py: 174', self.bs['order'], self.bs['total_price'][0])
+                    print('bst.py: 162')
+                    menu_item = list(self.bs['informs']['menu_item'].keys())[0]
+                    price = float((self.domain.find_info_about_entity(menu_item, {'price'}))[0].get('price'))
+                except KeyError:
+                    continue
                 except ValueError:
-                    pass
+                    continue
+                # append order to the belief state
+                self.bs['order'].append(menu_item)
+                # sum total price in the belief state
+                self.bs['total_price'][0] += price
+                print('bst.py: 175', self.bs['order'], self.bs['total_price'][0])
+#                # reset mentioned value to zero probability
+#                if act.slot in self.bs['informs']:
+#                    if act.value in self.bs['informs'][act.slot]:
+#                        del self.bs['informs'][act.slot][act.value]

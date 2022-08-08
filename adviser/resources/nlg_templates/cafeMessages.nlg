@@ -10,15 +10,17 @@ template closingmsg() : "Have a nice day!"
 
 template request(vegetarian): "Do you want something vegetarian?"
 template request(nut_free): "Are you allergic to nuts?"
-template request(type): "What kind of dish are you looking for?"
+template request(type): "What kind of food/drink are you looking for?"
+template request(temp): "Would you prefer something hot or cold?"
 
 # Rules for System Inform
 
 function info(slot, value, menu_item)
-    if slot = "breakfast": "is {either_or(value, "", "not ")}a breakfast item"
-    if slot = "lunch": "is {either_or(value, "", "not ")}a lunch item"
-    if slot = "dinner": "is {either_or(value, "", "not ")}a dinner item"
-    if slot = "drink": "is {either_or(value, "", "not ")}a drink"
+    if slot = "meal": 
+        if value = "breakfast": "is {either_or(value, "", "not ")}available for breakfast"
+        if value = "dessert": "is {either_or(value, "", "not ")}available for dessert"
+        if value = "drink": "is {either_or(value, "", "not ")}available all day"
+        if value = "lunch or dinner": "is {either_or(value, "", "not ")}available for lunch and dinner"
     if slot = "vegetarian": "is {either_or(value, "", "not ")}vegetarian"
     if slot = "nut_free"
         if value = "true": "is nut-free"
@@ -26,9 +28,12 @@ function info(slot, value, menu_item)
     if slot = "calories": "has {value} calories"
     if slot = "price": "is {value}"
     if slot = "type"
+        if value = "baby bundt": "is a baby bundt cake"
+        if value = "bar": "is a dessert bar"
         if value = "coffee": "is a coffee"
-        if value = "dessert": "is a dessert"
+        if value = "cookie": "is a cookie"
         if value = "eggs": "is an egg dish"
+        if value = "hot chocolate": "is a hot chocolate"
         if value = "lemonade": "is a lemonade"
         if value = "muffin or bagel": "includes either a muffin or a bagel"
         if value = "oatmeal": "is an oatmeal dish"
@@ -43,6 +48,9 @@ function info(slot, value, menu_item)
         if value = "tea": "is a tea"
         if value = "wrap": "is a wrap"
         if value = "yogurt": "is a yogurt dish"
+    if slot = "temp"
+        if value = "hot": "is served hot"
+        if value = "cold": "is served cold"
 
 function either_or(boolean, if_true, if_false)
 	if boolean = "true": "{if_true}"

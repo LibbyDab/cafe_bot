@@ -105,8 +105,8 @@ class TemplateFile:
     def _create_memory_from_sys_act(self, sys_act: SysAct) -> Memory:
         slots = Memory(self.global_memory)
         for slot in sys_act.slot_values:
-            print('templatefile.py: 108', sys_act)
             slots.add_variable(Variable(slot, sys_act.slot_values[slot]))
+        print('templatefile.py: 108', sys_act)
         return slots
 
     def add_python_function(self, function_name: str, python_function: Callable[[object], str],

@@ -119,6 +119,7 @@ class HandcraftedPolicy(Service):
         if UserActionType.Bad in beliefstate["user_acts"]:
             sys_act = SysAct()
             sys_act.type = SysActionType.Bad
+            print('policy_handcrafted.py: 122')
         # if the action is 'bye' tell system to end dialog
         elif UserActionType.Bye in beliefstate["user_acts"]:
             sys_act = SysAct()
@@ -211,6 +212,7 @@ class HandcraftedPolicy(Service):
         # has given so far
         else:
             constraints, _ = self._get_constraints(beliefstate)
+            print('policy_handcrafted.py: 215', constraints)
             return self.domain.find_entities(constraints)
 
     def _get_name(self, beliefstate: BeliefState):
@@ -304,9 +306,11 @@ class HandcraftedPolicy(Service):
                 and not self._get_name(beliefstate):
             sys_act = SysAct()
             sys_act.type = SysActionType.Bad
+            print('policy_handcrafted: 308')
             return sys_act, {'last_act': sys_act}
 
         elif UserActionType.Order in beliefstate['user_acts']:
+            print('policy_handcrafted.py: 313', self.domain.get_primary_key(), self._get_name(beliefstate))
             try:
                 float((self.domain.find_info_about_entity(self._get_name(beliefstate), {'price'}))[0].get('price'))
                 sys_act = SysAct()
@@ -323,6 +327,7 @@ class HandcraftedPolicy(Service):
                 and not self._get_constraints(beliefstate)[0]:
             sys_act = SysAct()
             sys_act.type = SysActionType.Bad
+            print('policy_handcrafted.py: 328')
             return sys_act, {'last_act': sys_act}
 
         elif self.domain.get_primary_key() in beliefstate['informs'] \
@@ -353,6 +358,7 @@ class HandcraftedPolicy(Service):
                 sys_act.add_value(self.domain.get_primary_key(), 'none')
 
         sys_state['last_act'] = sys_act
+        print('policy_handcrafted: 361', sys_state, '\n', beliefstate['informs'])
         return (sys_act, sys_state)
 
     def _raw_action(self, q_res: iter, beliefstate: BeliefState) -> SysAct:
