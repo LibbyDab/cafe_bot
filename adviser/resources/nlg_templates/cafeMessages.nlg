@@ -9,19 +9,18 @@ template closingmsg() : "Have a nice day!"
 # System Requests
 
 template request(vegetarian): "Do you want something vegetarian?"
-template request(nut_free): "Are you allergic to nuts?"
-template request(type): "What kind of food/drink are you looking for?"
+template request(nut_free): "Do you want something nut-free?"
 template request(temp): "Would you prefer something hot or cold?"
 
 # Rules for System Inform
 
 function info(slot, value, menu_item)
-    if slot = "meal": 
-        if value = "breakfast": "is {either_or(value, "", "not ")}available for breakfast"
-        if value = "dessert": "is {either_or(value, "", "not ")}available for dessert"
-        if value = "drink": "is {either_or(value, "", "not ")}available all day"
-        if value = "lunch or dinner": "is {either_or(value, "", "not ")}available for lunch and dinner"
-    if slot = "vegetarian": "is {either_or(value, "", "not ")}vegetarian"
+    if slot = "meal"
+        if value = "breakfast": "is available for breakfast"
+        if value = "dessert": "is available for dessert"
+        if value = "drink": "is available all day"
+        if value = "lunch or dinner": "is available for lunch and dinner"
+    if slot = "vegetarian": "is vegetarian"
     if slot = "nut_free"
         if value = "true": "is nut-free"
         if value = "false": "contains nuts"
@@ -74,7 +73,7 @@ template inform_alternatives(menu_item)
 
 template inform_byname(menu_item, *slots)
 	"The {menu_item} {for_entry(slots, "info", ", ", " and ", menu_item)}."
-	
+
 	special_case menu_item = "none"
 		"I'm sorry. We don't have a dish that {for_entry(slots, "info", ", ", " and ", menu_item)}."
 

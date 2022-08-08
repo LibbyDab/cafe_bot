@@ -92,7 +92,7 @@
         "Uptown Turkey Avocado": "(Uptown Turkey Avocado)"
     },
     "nut_free": {
-        "false": "((with|has) .*(nuts|protein))",
+        "false": "((with|has) .*nuts)",
         "true": "(I (don't|do not|can't|can not) eat|like nuts|(I am|I'm) allergic( to nuts)?|I have a nut allergy|nut-free|(without|no) nuts)"
     },
     "temp": {
@@ -122,7 +122,7 @@
         "yogurt": "(yogurt)"
     },
     "vegetarian": {
-        "false": "((with|has) .* (meat|protein))",
+        "false": "((with|has) .* meat)",
         "true": "((I (don't|do not|can't|can not) eat|like meat)|(without|no) meat|vegetarian)"
     }
 }
