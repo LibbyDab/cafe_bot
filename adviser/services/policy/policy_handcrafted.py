@@ -133,8 +133,11 @@ class HandcraftedPolicy(Service):
         elif UserActionType.Checkout in beliefstate['user_acts']:
             sys_act = SysAct()
             sys_act.type = SysActionType.Checkout
+            # make string of all ordered items for nlg
+            order = "\nYour order:\n"
             for menu_item in beliefstate['order']:
-                sys_act.add_value('order', menu_item)
+                order = ''.join([order, f"1 {menu_item : <30}{beliefstate['order'][menu_item]}\n"])
+            sys_act.add_value('order', order)
             sys_act.add_value('total_price', str("{:.2f}".format(beliefstate['total_price'][0])))
         # If user only says hello, request a random slot to move dialog along
         elif UserActionType.Hello in beliefstate["user_acts"] or UserActionType.SelectDomain in beliefstate["user_acts"]:
@@ -310,30 +313,33 @@ class HandcraftedPolicy(Service):
             return sys_act, {'last_act': sys_act}
 
         elif UserActionType.Order in beliefstate['user_acts']:
-            # check if menu item was informed by user
+#            # check if menu item was informed by user
+#            try:
+#                menu_item = list(beliefstate['informs']['menu_item'].keys())[0]
+#                # if menu item was not informed by user, get most recent item
+#                if not list(beliefstate['informs']['menu_item'].keys())[0]:
+#                    menu_item = self._get_name(beliefstate)
+#                    print('policy_handcrafted.py: 321', menu_item)
+#            except KeyError:
+#                # if menu item was mentioned by system, get most recent item
+#                menu_item = self._get_name(beliefstate)
+#                print('policy_handcrafted: 320', menu_item)
+#            # check if menu item has price/is in stock
             try:
-                menu_item = list(beliefstate['informs']['menu_item'].keys())[0]
-                # if menu item was not informed by user, get most recent item
-                if not list(beliefstate['informs']['menu_item'].keys())[0]:
-                    menu_item = self._get_name(beliefstate)
-                    print('policy_handcrafted.py: 321', menu_item)
-            except KeyError:
-                # if menu item was mentioned by system, get most recent item
                 menu_item = self._get_name(beliefstate)
-                print('policy_handcrafted: 320', menu_item)
-            # check if menu item has price/is in stock
-            try:
-                price = float((self.domain.find_info_about_entity(menu_item, {'price'}))[0].get('price'))
+                if not menu_item:
+                    menu_item = list(beliefstate['order'])[-1]
+                float((self.domain.find_info_about_entity(menu_item, {'price'}))[0].get('price'))
                 # check if menu item was already added to order in bst.py (lines 180-184)
-                if not (menu_item in beliefstate['order']):
-                    # append order to the belief state
-                    beliefstate['order'].append(menu_item)
-                    # sum total price in the belief state
-                    beliefstate['total_price'][0] += price
-                    print('policy_handcrafted.py: 330', beliefstate['order'], beliefstate['total_price'][0])
+#                if not (menu_item in beliefstate['order']):
+#                    # append order to the belief state
+#                    beliefstate['order'].append(menu_item)
+#                    # sum total price in the belief state
+#                    beliefstate['total_price'][0] += price
+                print('policy_handcrafted.py: 330', beliefstate['order'], beliefstate['total_price'][0])
                 sys_act = SysAct()
                 sys_act.type = SysActionType.Order
-                sys_act.add_value(self.domain.get_primary_key(), self._get_name(beliefstate))
+                sys_act.add_value(self.domain.get_primary_key(), menu_item)
                 return sys_act, {'last_act': sys_act}
             except ValueError:
                 # menu item has no price/is not in stock

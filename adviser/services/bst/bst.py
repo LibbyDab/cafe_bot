@@ -139,9 +139,11 @@ class HandcraftedBST(Service):
                 # add informs and their scores to the beliefstate
                 if act.slot in self.bs["informs"]:
                     self.bs['informs'][act.slot][act.value] = act.score
+                    print('bst.py:142', act.slot)
                 else:
                     self.bs['informs'][act.slot] = {act.value: act.score}
-                print('bst.py: 144', self.bs['informs'])
+                    print('bst.py:145', act.slot)
+                print('bst.py: 146', self.bs['informs'])
             elif act.type == UserActionType.NegativeInform:
                 # reset mentioned value to zero probability
                 if act.slot in self.bs['informs']:
@@ -152,18 +154,12 @@ class HandcraftedBST(Service):
                 if self.domain.get_primary_key() in self.bs['informs']:
                     del self.bs['informs'][self.domain.get_primary_key()]
             elif act.type == UserActionType.Order:
-                # use beliefstate['informs'] to store/reference menu_items so policy_handcrafted._get_name(beliefstate) works nicely
-                # add informs and their scores to the beliefstate
-                if act.slot in self.bs["informs"]:
-                    self.bs['informs'][act.slot][act.value] = act.score
-                else:
-                    self.bs['informs'][act.slot] = {act.value: act.score}
                 # if menu item was named in order act
                 if act.value:
                     menu_item = act.value
                     print('bst.py: 163', menu_item)
                 else:
-                    # check if menu item was informed by user
+                    # check if menu item was informed by user previously
                     try:
                         menu_item = list(self.bs['informs']['menu_item'].keys())[0]
                         print('bst.py: 167', menu_item)
@@ -178,7 +174,9 @@ class HandcraftedBST(Service):
                     # menu item has no price/is out of stock and not added to belief state
                     continue
                 # append ordered menu item to the belief state
-                self.bs['order'].append(menu_item)
+                self.bs['order'][menu_item] = price
                 # sum total price in the belief state
                 self.bs['total_price'][0] += price
+                # clear informs belief state
+                self.bs['informs'].clear()
                 print('bst.py: 175', self.bs['order'], self.bs['total_price'][0])

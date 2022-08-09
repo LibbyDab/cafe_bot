@@ -109,7 +109,7 @@ class BeliefState:
                         "requests": {},
                         "num_matches": 0,
                         "discriminable": True,
-                        "order": [],
+                        "order": {},
                         "total_price": [0]
                         }
 

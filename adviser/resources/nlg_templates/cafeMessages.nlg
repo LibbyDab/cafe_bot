@@ -2,9 +2,9 @@
 
 template welcomemsg(): "Welcome to Corner Bakery Cafe. How can I help you?"
 template welcomemsg(help): "Sorry, I can't understand you. Please tell me again what you are looking for."
-template welcomemsg(more) : "Can I help you with anything else or are you ready to checkout?"
+template welcomemsg(more) : "Can I help you with anything else?"
 template bad() : "Sorry I didn't understand that; please tell me again what you are looking for."
-template closingmsg() : "Have a nice day!"
+template closingmsg() : " Thank you for dining at Corner Bakery. Bon Appetit!"
 
 # System Requests
 
@@ -86,7 +86,7 @@ template inform_alternatives(menu_item, *slots)
 # ---------------------------System RequestMore------------------------------ #
 
 template reqmore()
-	"What else can I help you with?"
+	"Can I help you with anything else?"
 
 # ---------------------------System Order & Unorderable ------------------------------ #
 
@@ -96,5 +96,5 @@ template unorderable(menu_item): "I'm sorry, the {menu_item} is out of stock. Pl
 
 # ---------------------------System Checkout ------------------------------ #
 
-template checkout(total_price, order) : "Your total comes to {total_price}. Thank you for dining at Corner Bakery. Bon Appetit!"
-# see nlg.py lines 102-106
+template checkout(total_price, order) : "{order}Your total comes to {total_price}."
+# see policy_handcrafted.py (lines 136-140)
