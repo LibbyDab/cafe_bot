@@ -120,7 +120,6 @@ class HandcraftedPolicy(Service):
         if UserActionType.Bad in beliefstate["user_acts"]:
             sys_act = SysAct()
             sys_act.type = SysActionType.Bad
-            print('policy_handcrafted.py: 122')
         # if the action is 'bye' tell system to end dialog
         elif UserActionType.Bye in beliefstate["user_acts"]:
             sys_act = SysAct()
@@ -309,50 +308,33 @@ class HandcraftedPolicy(Service):
                 and not self._get_name(beliefstate):
             sys_act = SysAct()
             sys_act.type = SysActionType.Bad
-            print('policy_handcrafted: 310')
             return sys_act, {'last_act': sys_act}
 
         elif UserActionType.Order in beliefstate['user_acts']:
-#            # check if menu item was informed by user
-#            try:
-#                menu_item = list(beliefstate['informs']['menu_item'].keys())[0]
-#                # if menu item was not informed by user, get most recent item
-#                if not list(beliefstate['informs']['menu_item'].keys())[0]:
-#                    menu_item = self._get_name(beliefstate)
-#                    print('policy_handcrafted.py: 321', menu_item)
-#            except KeyError:
-#                # if menu item was mentioned by system, get most recent item
-#                menu_item = self._get_name(beliefstate)
-#                print('policy_handcrafted: 320', menu_item)
-#            # check if menu item has price/is in stock
-            try:
-                menu_item = self._get_name(beliefstate)
-                if not menu_item:
-                    menu_item = list(beliefstate['order'])[-1]
-                float((self.domain.find_info_about_entity(menu_item, {'price'}))[0].get('price'))
-                # check if menu item was already added to order in bst.py (lines 180-184)
-#                if not (menu_item in beliefstate['order']):
-#                    # append order to the belief state
-#                    beliefstate['order'].append(menu_item)
-#                    # sum total price in the belief state
-#                    beliefstate['total_price'][0] += price
-                print('policy_handcrafted.py: 330', beliefstate['order'], beliefstate['total_price'][0])
-                sys_act = SysAct()
-                sys_act.type = SysActionType.Order
-                sys_act.add_value(self.domain.get_primary_key(), menu_item)
-                return sys_act, {'last_act': sys_act}
-            except ValueError:
-                # menu item has no price/is not in stock
-                sys_act = SysAct()
-                sys_act.type = SysActionType.Unorderable
-                sys_act.add_value(self.domain.get_primary_key(), self._get_name(beliefstate))
-                return sys_act, {'last_act': sys_act}
-
+            for menu_item in beliefstate['informs']['menu_item']:
+                if self.is_orderable(menu_item):
+                    continue
+                else:
+                    # menu item has no price/is not in stock
+                    sys_act = SysAct()
+                    sys_act.type = SysActionType.Unorderable
+                    sys_act.add_value(self.domain.get_primary_key(), menu_item)
+                    return sys_act, {'last_act': sys_act}
+            order_str = self.add_pronoun(list(beliefstate['informs']['menu_item'])[0])
+            if len(list(beliefstate['informs']['menu_item'])) == 2:
+                order_str = ' and '.join([order_str, self.add_pronoun(list(beliefstate['informs']['menu_item'])[1])])
+            if len(list(beliefstate['informs']['menu_item'])) > 2:
+                for item in list(beliefstate['informs']['menu_item'].keys())[1:-1]:
+                    order_str = ', '.join([order_str, self.add_pronoun(item)])
+                order_str = ', and '.join([order_str, self.add_pronoun(list(beliefstate['informs']['menu_item'].keys())[-1])])
+            sys_act = SysAct()
+            sys_act.type = SysActionType.Order
+            sys_act.add_value(self.domain.get_primary_key(), order_str)
+            return sys_act, {'last_act': sys_act}
         elif UserActionType.RequestAlternatives in beliefstate['user_acts'] \
                 and not self._get_constraints(beliefstate)[0]:
             sys_act = SysAct()
             sys_act.type = SysActionType.Bad
-            print('policy_handcrafted.py: 328')
             return sys_act, {'last_act': sys_act}
 
         elif self.domain.get_primary_key() in beliefstate['informs'] \
@@ -360,7 +342,6 @@ class HandcraftedPolicy(Service):
             sys_act = SysAct()
             sys_act.type = SysActionType.InformByName
             sys_act.add_value(self.domain.get_primary_key(), self._get_name(beliefstate))
-            print('policy_handcrafted.py: 339')
             return sys_act, {'last_act': sys_act}
 
         # Otherwise we need to query the db to determine next action
@@ -378,7 +359,8 @@ class HandcraftedPolicy(Service):
             # update belief state to reflect the offer we just made
             values = sys_act.get_values(self.domain.get_primary_key())
             if values:
-                # beliefstate['last_rec'][0] = values[0]
+                # add menu item to belief state
+                beliefstate['informs']['menu_item'] = values[0]
                 sys_state['lastInformedPrimKeyVal'] = values[0]
             else:
                 sys_act.add_value(self.domain.get_primary_key(), 'none')
@@ -603,3 +585,20 @@ class HandcraftedPolicy(Service):
             # Using constraints here rather than results to deal with empty
             # results sets (eg. user requests something impossible) --LV
             sys_act.add_value(c, constraints[c])
+
+    def is_orderable(self, menu_item: str):
+        '''returns True if the menu item is orderable'''
+        if self.domain.find_info_about_entity(menu_item, {'price'}) != 'out of stock':
+            return True
+        else:
+            return False
+    
+    def add_pronoun(self, menu_item: str):
+        '''returns menu item with pronoun (a/an) or no pronoun if plural'''
+        if menu_item[-1] == 's':
+            pronoun = ''
+        elif menu_item[0] in {"A", "E", "I", "O", "U"}:
+            pronoun = 'an '
+        else:
+            pronoun = 'a '
+        return f"{pronoun}{menu_item}"

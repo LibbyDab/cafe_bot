@@ -139,11 +139,8 @@ class HandcraftedBST(Service):
                 # add informs and their scores to the beliefstate
                 if act.slot in self.bs["informs"]:
                     self.bs['informs'][act.slot][act.value] = act.score
-                    print('bst.py:142', act.slot)
                 else:
                     self.bs['informs'][act.slot] = {act.value: act.score}
-                    print('bst.py:145', act.slot)
-                print('bst.py: 146', self.bs['informs'])
             elif act.type == UserActionType.NegativeInform:
                 # reset mentioned value to zero probability
                 if act.slot in self.bs['informs']:
@@ -157,15 +154,13 @@ class HandcraftedBST(Service):
                 # if menu item was named in order act
                 if act.value:
                     menu_item = act.value
-                    print('bst.py: 163', menu_item)
                 else:
-                    # check if menu item was informed by user previously
+                    # check if menu item was informed by user
                     try:
-                        menu_item = list(self.bs['informs']['menu_item'].keys())[0]
-                        print('bst.py: 167', menu_item)
+                        menu_item = list(self.bs['informs']['menu_item'])[0]
                     except KeyError:
+                        print('bst.py: 167 not added to order')
                         # menu item was informed by system (stored in policy, not belief state)
-                        # menu item & price added to belief state in policy_handcrafted.py (ines 329-332)
                         continue
                 # check if menu item has price/is in stock
                 try:
@@ -177,6 +172,8 @@ class HandcraftedBST(Service):
                 self.bs['order'][menu_item] = price
                 # sum total price in the belief state
                 self.bs['total_price'][0] += price
-                # clear informs belief state
-                self.bs['informs'].clear()
-                print('bst.py: 175', self.bs['order'], self.bs['total_price'][0])
+                # clear informs belief state after ordering except menu items
+                # this allows system to make new recommendations without old inform values
+                for k in list(self.bs['informs']):
+                    if k != 'menu_item':
+                        del self.bs['informs'][k]

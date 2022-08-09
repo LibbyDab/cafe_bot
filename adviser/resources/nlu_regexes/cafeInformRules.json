@@ -18,7 +18,7 @@
         "Bacon & Roasted Tomato Frittata Bites": "(Bacon (&|and) Roasted Tomato Frittata Bites)",
         "Bacon Avocado Egg Bowl": "(Bacon Avocado Egg Bowl)",
         "Bacon Breakfast Wrap": "(Bacon Breakfast Wrap)",
-        "Bakery Chips": "(Bakery Chips)",
+        "Bakery Chips": "((Bakery )?Chips)",
         "Berry & Almond Overnight Oats": "(Berry (&|and) Almond Overnight Oats)",
         "Breakfast Wrap Morning Rush": "(Breakfast Wrap Morning Rush)",
         "Buttermilk Pancakes": "(Buttermilk Pancakes(?! with))",

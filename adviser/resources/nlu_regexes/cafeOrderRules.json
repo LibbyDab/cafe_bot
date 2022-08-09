@@ -12,7 +12,7 @@
         "Bacon & Roasted Tomato Frittata Bites": "((I want |I would like |I'd like |(I will|I'll) (have|get|take|order) |(Can|May|Could) I )(to )?(please )?(order |get |have )?.*Bacon (&|and) Roasted Tomato Frittata Bites(,? please)?)",
         "Bacon Avocado Egg Bowl": "((I want |I would like |I'd like |(I will|I'll) (have|get|take|order) |(Can|May|Could) I )(to )?(please )?(order |get |have )?.*Bacon Avocado Egg Bowl(,? please)?)",
         "Bacon Breakfast Wrap": "((I want |I would like |I'd like |(I will|I'll) (have|get|take|order) |(Can|May|Could) I )(to )?(please )?(order |get |have )?.*Bacon Breakfast Wrap(,? please)?)",
-        "Bakery Chips": "((I want |I would like |I'd like |(I will|I'll) (have|get|take|order) |(Can|May|Could) I )(to )?(please )?(order |get |have )?.*(side of )?Bakery Chips( on the side)?(,? please)?)",
+        "Bakery Chips": "((I want |I would like |I'd like |(I will|I'll) (have|get|take|order) |(Can|May|Could) I )(to )?(please )?(order |get |have )?.*(side of )?(Bakery )?Chips( on the side)?(,? please)?)",
         "Berry & Almond Overnight Oats": "((I want |I would like |I'd like |(I will|I'll) (have|get|take|order) |(Can|May|Could) I )(to )?(please )?(order |get |have )?.*Berry (&|and) Almond Overnight Oats(,? please)?)",
         "Breakfast Wrap Morning Rush": "((I want |I would like |I'd like |(I will|I'll) (have|get|take|order) |(Can|May|Could) I )(to )?(please )?(order |get |have )?.*Breakfast Wrap Morning Rush(,? please)?)",
         "Buttermilk Pancakes": "((I want |I would like |I'd like |(I will|I'll) (have|get|take|order) |(Can|May|Could) I )(to )?(please )?(order |get |have )?.*Buttermilk Pancakes(?! with)(,? please)?)",

@@ -4,7 +4,7 @@ template welcomemsg(): "Welcome to Corner Bakery Cafe. How can I help you?"
 template welcomemsg(help): "Sorry, I can't understand you. Please tell me again what you are looking for."
 template welcomemsg(more) : "Can I help you with anything else?"
 template bad() : "Sorry I didn't understand that; please tell me again what you are looking for."
-template closingmsg() : " Thank you for dining at Corner Bakery. Bon Appetit!"
+template closingmsg() : "Thank you for dining at Corner Bakery. Bon Appetit!"
 
 # System Requests
 
@@ -90,7 +90,7 @@ template reqmore()
 
 # ---------------------------System Order & Unorderable ------------------------------ #
 
-template order(menu_item): "I have added a {menu_item} to your order."
+template order(menu_item): "I have added {menu_item} to your order."
 
 template unorderable(menu_item): "I'm sorry, the {menu_item} is out of stock. Please choose something else."
 
