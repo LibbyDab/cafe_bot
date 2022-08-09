@@ -141,6 +141,7 @@ class HandcraftedBST(Service):
                     self.bs['informs'][act.slot][act.value] = act.score
                 else:
                     self.bs['informs'][act.slot] = {act.value: act.score}
+                print('bst.py: 144', self.bs['informs'])
             elif act.type == UserActionType.NegativeInform:
                 # reset mentioned value to zero probability
                 if act.slot in self.bs['informs']:
@@ -157,7 +158,27 @@ class HandcraftedBST(Service):
                     self.bs['informs'][act.slot][act.value] = act.score
                 else:
                     self.bs['informs'][act.slot] = {act.value: act.score}
-                # see policy_handcrafted 314-319 
-                # ordering belief state handled in policy so most recently system recommended menu item can be added using pronoun
-
-
+                # if menu item was named in order act
+                if act.value:
+                    menu_item = act.value
+                    print('bst.py: 163', menu_item)
+                else:
+                    # check if menu item was informed by user
+                    try:
+                        menu_item = list(self.bs['informs']['menu_item'].keys())[0]
+                        print('bst.py: 167', menu_item)
+                    except KeyError:
+                        # menu item was informed by system (stored in policy, not belief state)
+                        # menu item & price added to belief state in policy_handcrafted.py (ines 329-332)
+                        continue
+                # check if menu item has price/is in stock
+                try:
+                    price = float((self.domain.find_info_about_entity(menu_item, {'price'}))[0].get('price'))
+                except ValueError:
+                    # menu item has no price/is out of stock and not added to belief state
+                    continue
+                # append ordered menu item to the belief state
+                self.bs['order'].append(menu_item)
+                # sum total price in the belief state
+                self.bs['total_price'][0] += price
+                print('bst.py: 175', self.bs['order'], self.bs['total_price'][0])

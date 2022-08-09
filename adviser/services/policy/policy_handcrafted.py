@@ -310,19 +310,33 @@ class HandcraftedPolicy(Service):
             return sys_act, {'last_act': sys_act}
 
         elif UserActionType.Order in beliefstate['user_acts']:
+            # check if menu item was informed by user
             try:
+                menu_item = list(beliefstate['informs']['menu_item'].keys())[0]
+                # if menu item was not informed by user, get most recent item
+                if not list(beliefstate['informs']['menu_item'].keys())[0]:
+                    menu_item = self._get_name(beliefstate)
+                    print('policy_handcrafted.py: 321', menu_item)
+            except KeyError:
+                # if menu item was mentioned by system, get most recent item
                 menu_item = self._get_name(beliefstate)
+                print('policy_handcrafted: 320', menu_item)
+            # check if menu item has price/is in stock
+            try:
                 price = float((self.domain.find_info_about_entity(menu_item, {'price'}))[0].get('price'))
-                # append order to the belief state
-                beliefstate['order'].append(menu_item)
-                # sum total price in the belief state
-                beliefstate['total_price'][0] += price
-                print('policy_handcrafted.py: 320', beliefstate['order'], beliefstate['total_price'][0])
+                # check if menu item was already added to order in bst.py (lines 180-184)
+                if not (menu_item in beliefstate['order']):
+                    # append order to the belief state
+                    beliefstate['order'].append(menu_item)
+                    # sum total price in the belief state
+                    beliefstate['total_price'][0] += price
+                    print('policy_handcrafted.py: 330', beliefstate['order'], beliefstate['total_price'][0])
                 sys_act = SysAct()
                 sys_act.type = SysActionType.Order
                 sys_act.add_value(self.domain.get_primary_key(), self._get_name(beliefstate))
                 return sys_act, {'last_act': sys_act}
             except ValueError:
+                # menu item has no price/is not in stock
                 sys_act = SysAct()
                 sys_act.type = SysActionType.Unorderable
                 sys_act.add_value(self.domain.get_primary_key(), self._get_name(beliefstate))
@@ -358,7 +372,7 @@ class HandcraftedPolicy(Service):
             # update belief state to reflect the offer we just made
             values = sys_act.get_values(self.domain.get_primary_key())
             if values:
-                # belief_state['system']['lastInformedPrimKeyVal'] = values[0]
+                # beliefstate['last_rec'][0] = values[0]
                 sys_state['lastInformedPrimKeyVal'] = values[0]
             else:
                 sys_act.add_value(self.domain.get_primary_key(), 'none')
