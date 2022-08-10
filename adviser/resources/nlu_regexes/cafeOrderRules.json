@@ -43,7 +43,7 @@
         "Cream Cheese Brownie": "((I want |I would like |I'd like |(I will|I'll) (have|get|take|order) |(Can|May|Could) I )(to )?(please )?(order |get |have )?.*Cream Cheese Brownie( Bar)?(,? please)?)",
         "Denver Frittata Bites": "((I want |I would like |I'd like |(I will|I'll) (have|get|take|order) |(Can|May|Could) I )(to )?(please )?(order |get |have )?.*Denver Frittata Bites(,? please)?)",
         "Fountain Soda": "((I want |I would like |I'd like |(I will|I'll) (have|get|take|order) |(Can|May|Could) I )(to )?(please )?(order |get |have )?.*Fountain Soda(,? please)?)",
-        "Fresh Yogurt & Berry Parfait": "((I want |I would like |I'd like |(I will|I'll) (have|get|take|order) |(Can|May|Could) I )(to )?(please )?(order |get |have )?.*Fresh Yogurt (&|and) Berry Parfait(,? please)?)",
+        "Fresh Yogurt & Berry Parfait": "((I want |I would like |I'd like |(I will|I'll) (have|get|take|order) |(Can|May|Could) I )(to )?(please )?(order |get |have )?.*Yogurt.*Parfait(,? please)?)",
         "Fudge Brownie": "((I want |I would like |I'd like |(I will|I'll) (have|get|take|order) |(Can|May|Could) I )(to )?(please )?(order |get |have )?.*Fudge Brownie( Bar)?(,? please)?)",
         "Hand-Roasted Coffee": "((I want |I would like |I'd like |(I will|I'll) (have|get|take|order) |(Can|May|Could) I )(to )?(please )?(order |get |have )?.*Hand-Roasted Coffee(,? please)?)",
         "Harvest": "((I want |I would like |I'd like |(I will|I'll) (have|get|take|order) |(Can|May|Could) I )(to )?(please )?(order |get |have )?.*Harvest( Salad)?(,? please)?)",

@@ -1,9 +1,9 @@
 {
-    "vegetarian": "((Is|Does) .* (vegetarian|have meat))",
-    "nut_free": "((Is|Does) .* (nut-free|have nuts))",
+    "vegetarian": "((Is|Does).*(vegetarian|meat))",
+    "nut_free": "((Is|Does).*nut)",
     "calories": "(calorie)",
     "price": "(How much|cost|price)",
     "type": "(What ((kind|type) of (dish|food|drink|beverage) )?is )",
-    "temp": "((Is|Does|What) .* (hot|warm|cold|cool|chill|temp))",
+    "temp": "((Is|Does|What).*(hot|warm|cold|cool|chill|temp))",
     "meal": "(When|time)"
 }

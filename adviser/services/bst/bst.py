@@ -155,12 +155,18 @@ class HandcraftedBST(Service):
                 if act.value:
                     menu_item = act.value
                 else:
-                    # check if menu item was informed by user
+                    # try to find menu item in informs belief state
                     try:
                         menu_item = list(self.bs['informs']['menu_item'])[0]
+                    # menu item was informed by system during a user request act (stored in policy, not belief state)
+                    # system cannot currently handle ordering without any user inform act
+                    # because policy_handcrafted.py cannot update beliefstate
                     except KeyError:
-                        print('bst.py: 167 not added to order')
-                        # menu item was informed by system (stored in policy, not belief state)
+                        # clear informs belief state after ordering except menu items
+                        # this allows system to make new recommendations without old inform values
+                        for k in list(self.bs['informs']):
+                            if k != 'menu_item':
+                                del self.bs['informs'][k]
                         continue
                 # check if menu item has price/is in stock
                 try:

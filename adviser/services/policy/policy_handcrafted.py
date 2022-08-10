@@ -128,11 +128,41 @@ class HandcraftedPolicy(Service):
         elif UserActionType.Thanks in beliefstate["user_acts"]:
             sys_act = SysAct()
             sys_act.type = SysActionType.RequestMore
+        elif UserActionType.Order in beliefstate['user_acts']:
+            # try to find menu item in informs belief state
+            try:
+                list(beliefstate['informs']['menu_item'])[0]
+                for menu_item in beliefstate['informs']['menu_item']:
+                    # if menu item has no price/is not in stock, return Unorderable sys act
+                    if not self.is_orderable(menu_item):
+                        sys_act = SysAct()
+                        sys_act.type = SysActionType.Unorderable
+                        sys_act.add_value(self.domain.get_primary_key(), menu_item)
+                        return sys_act, {'last_act': sys_act}
+                # if menu item(s) are all in stock, turn list to single string (with commas and articles)
+                # this enables nlg to print a list of multiple ordered items
+                order_str = self.add_article(list(beliefstate['informs']['menu_item'])[0])
+                if len(list(beliefstate['informs']['menu_item'])) == 2:
+                    order_str = ' and '.join([order_str, self.add_article(list(beliefstate['informs']['menu_item'])[1])])
+                if len(list(beliefstate['informs']['menu_item'])) > 2:
+                    for item in list(beliefstate['informs']['menu_item'].keys())[1:-1]:
+                        order_str = ', '.join([order_str, self.add_article(item)])
+                    order_str = ', and '.join([order_str, self.add_article(list(beliefstate['informs']['menu_item'].keys())[-1])])
+                sys_act = SysAct()
+                sys_act.type = SysActionType.Order
+                sys_act.add_value(self.domain.get_primary_key(), order_str)
+            # menu item was informed by system during a user request act (stored in policy, not belief state)
+            # system cannot currently handle ordering without any user inform act
+            # because policy_handcrafted.py cannot update beliefstate
+            except KeyError:
+                sys_act = SysAct()
+                sys_act.type = SysActionType.Bad
         # if user says they want to checkout, list their order and total price
         elif UserActionType.Checkout in beliefstate['user_acts']:
             sys_act = SysAct()
             sys_act.type = SysActionType.Checkout
-            # make string of all ordered items for nlg
+            # turn dict to string of all ordered items and their individual price (with nice spacing)
+            # this enables nlg to print the list of ordered items and their individual price
             order = "\nYour order:\n"
             for menu_item in beliefstate['order']:
                 order = ''.join([order, f"1 {menu_item : <30}{beliefstate['order'][menu_item]}\n"])
@@ -310,27 +340,6 @@ class HandcraftedPolicy(Service):
             sys_act.type = SysActionType.Bad
             return sys_act, {'last_act': sys_act}
 
-        elif UserActionType.Order in beliefstate['user_acts']:
-            for menu_item in beliefstate['informs']['menu_item']:
-                if self.is_orderable(menu_item):
-                    continue
-                else:
-                    # menu item has no price/is not in stock
-                    sys_act = SysAct()
-                    sys_act.type = SysActionType.Unorderable
-                    sys_act.add_value(self.domain.get_primary_key(), menu_item)
-                    return sys_act, {'last_act': sys_act}
-            order_str = self.add_pronoun(list(beliefstate['informs']['menu_item'])[0])
-            if len(list(beliefstate['informs']['menu_item'])) == 2:
-                order_str = ' and '.join([order_str, self.add_pronoun(list(beliefstate['informs']['menu_item'])[1])])
-            if len(list(beliefstate['informs']['menu_item'])) > 2:
-                for item in list(beliefstate['informs']['menu_item'].keys())[1:-1]:
-                    order_str = ', '.join([order_str, self.add_pronoun(item)])
-                order_str = ', and '.join([order_str, self.add_pronoun(list(beliefstate['informs']['menu_item'].keys())[-1])])
-            sys_act = SysAct()
-            sys_act.type = SysActionType.Order
-            sys_act.add_value(self.domain.get_primary_key(), order_str)
-            return sys_act, {'last_act': sys_act}
         elif UserActionType.RequestAlternatives in beliefstate['user_acts'] \
                 and not self._get_constraints(beliefstate)[0]:
             sys_act = SysAct()
@@ -593,12 +602,12 @@ class HandcraftedPolicy(Service):
         else:
             return False
     
-    def add_pronoun(self, menu_item: str):
-        '''returns menu item with pronoun (a/an) or no pronoun if plural'''
+    def add_article(self, menu_item: str):
+        '''returns menu item with article (a/an) or no article if plural'''
         if menu_item[-1] == 's':
-            pronoun = ''
+            article = ''
         elif menu_item[0] in {"A", "E", "I", "O", "U"}:
-            pronoun = 'an '
+            article = 'an '
         else:
-            pronoun = 'a '
-        return f"{pronoun}{menu_item}"
+            article = 'a '
+        return f"{article}{menu_item}"

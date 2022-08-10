@@ -18,7 +18,7 @@ function info(slot, value, menu_item)
     if slot = "meal"
         if value = "breakfast": "available for breakfast"
         if value = "dessert": "available for dessert"
-        if value = "drink": "a drink available all day"
+        if value = "drink": "available all day"
         if value = "lunch or dinner": "available for lunch and dinner"
     if slot = "vegetarian": "vegetarian"
     if slot = "nut_free"

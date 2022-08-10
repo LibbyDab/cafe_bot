@@ -49,7 +49,7 @@
         "Cream Cheese Brownie": "(Cream Cheese Brownie)",
         "Denver Frittata Bites": "(Denver Frittata Bites)",
         "Fountain Soda": "(Fountain Soda)",
-        "Fresh Yogurt & Berry Parfait": "(Fresh Yogurt (&|and) Berry Parfait)",
+        "Fresh Yogurt & Berry Parfait": "(Yogurt.*Parfait)",
         "Fudge Brownie": "(Fudge Brownie)",
         "Hand-Roasted Coffee": "(Hand-Roasted Coffee)",
         "Harvest": "(Harvest)",
