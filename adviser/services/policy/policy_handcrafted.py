@@ -133,10 +133,10 @@ class HandcraftedPolicy(Service):
             try:
                 list(beliefstate['informs']['menu_item'])[0]
                 for menu_item in beliefstate['informs']['menu_item']:
-                    # if menu item has no price/is out of stock, return Unorderable sys act
+                    # if menu item has no price/is out of stock, return NotOrderable sys act
                     if not self.is_orderable(menu_item):
                         sys_act = SysAct()
-                        sys_act.type = SysActionType.Unorderable
+                        sys_act.type = SysActionType.NotOrderable
                         sys_act.add_value(self.domain.get_primary_key(), menu_item)
                         return {'sys_act': sys_act, "sys_state": sys_state}
                 # if menu item(s) are all in stock, turn list to single string (with commas and articles)

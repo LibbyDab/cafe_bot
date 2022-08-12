@@ -87,11 +87,11 @@ template inform_alternatives(menu_item, *slots)
 template reqmore()
 	"Can I help you with anything else?"
 
-# ---------------------------System Order & Unorderable ------------------------------ #
+# ---------------------------System Order & NotOrderable ------------------------------ #
 
 template order(menu_item): "I have added {menu_item} to your order."
 
-template unorderable(menu_item): "I'm sorry, the {menu_item} is out of stock. Please choose something else."
+template notorderable(menu_item): "I'm sorry, the {menu_item} is out of stock. Please choose something else."
 
 # ---------------------------System Checkout ------------------------------ #
 

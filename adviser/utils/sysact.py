@@ -37,7 +37,7 @@ class SysActionType(Enum):
     Bye = 'closingmsg'
     ConfirmRequest = 'confreq'
     Order = 'order'
-    Unorderable = 'unorderable'
+    NotOrderable = 'notorderable'
     Checkout = 'checkout'
 
 
