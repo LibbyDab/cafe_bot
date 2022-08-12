@@ -168,10 +168,10 @@
         "meal"
     ],
     "system_requestable": [
-        "menu_item",
         "vegetarian",
         "nut_free",
-        "temp"
+        "temp",
+        "meal"
     ],
     "keyword": "cafe"
 }

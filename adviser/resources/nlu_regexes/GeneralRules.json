@@ -9,5 +9,5 @@
     "dontcare": "(anything(?! else)|((any$|any kind)|(i )*(don'?t|do not) (care|know|mind))($|(?! (a?bout|of|what))|( (a?bout|of|what) (type|kind)(?! of))| a?bout (that|this))|(any(thing)? (is )*(fine|ok\\b|okay|will do))($| and| but)|(it )?(doesn'?t|does not) matter)+",
     "req_everything": "(\\b|^| )(((say|tell( me)?)|(want|need) to know)( everything)? about)",
     "checkout": "(\\b|^| )(checkout|pay|done|ready|finished)(\\s|$| |\\.)",
-    "order": "((I want |I would like |I'd like |(I will|I'll) (have|get|take|order) |(Can|May|Could) I )(to )?(please )?(order |get |have )?(this|that|it|one)(,? please)?$)"
+    "order": "((I want |I would like |I'd like |(I will|I'll) (have|get|take|order) |(Can|May|Could) I )(to )?(please )?(order |get |have )?(this|that|it|one)(,? please)?)"
 }

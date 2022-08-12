@@ -133,12 +133,12 @@ class HandcraftedPolicy(Service):
             try:
                 list(beliefstate['informs']['menu_item'])[0]
                 for menu_item in beliefstate['informs']['menu_item']:
-                    # if menu item has no price/is not in stock, return Unorderable sys act
+                    # if menu item has no price/is out of stock, return Unorderable sys act
                     if not self.is_orderable(menu_item):
                         sys_act = SysAct()
                         sys_act.type = SysActionType.Unorderable
                         sys_act.add_value(self.domain.get_primary_key(), menu_item)
-                        return sys_act, {'last_act': sys_act}
+                        return {'sys_act': sys_act, "sys_state": sys_state}
                 # if menu item(s) are all in stock, turn list to single string (with commas and articles)
                 # this enables nlg to print a list of multiple ordered items
                 order_str = self.add_article(list(beliefstate['informs']['menu_item'])[0])
@@ -597,7 +597,7 @@ class HandcraftedPolicy(Service):
 
     def is_orderable(self, menu_item: str):
         '''returns True if the menu item is orderable'''
-        if self.domain.find_info_about_entity(menu_item, {'price'}) != 'out of stock':
+        if self.domain.find_info_about_entity(menu_item, {'price'})[0].get('price') != 'out of stock':
             return True
         else:
             return False
